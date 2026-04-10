@@ -273,14 +273,99 @@ export function combineTelemetry(...sinks: Telemetry[]): Telemetry;
 ### Targeting
 
 ```ts
-/** Evaluate a targeting predicate against a context. Pure, synchronous. */
-export function matchTargeting(targeting: Targeting, context: VariantContext): boolean;
+/**
+ * Runtime context augmented with the optional precomputed sha256
+ * bucket (0..99) for the hash-mod userId operator. The engine fills
+ * this via `hashUserId` on every context update; `evaluate` reads it
+ * synchronously.
+ */
+export interface EvalContext extends VariantContext {
+  readonly userIdBucket?: number;
+}
 
-/** Match a route pattern. Supports `/foo`, `/foo/*`, `/foo/**`. */
+/**
+ * Targeting augmented with the optional application-provided predicate
+ * escape hatch. Functions can't live in JSON configs, so this type
+ * only exists at the evaluation layer.
+ */
+export interface EvaluableTargeting extends Targeting {
+  readonly predicate?: (context: VariantContext) => boolean;
+}
+
+/** Result of a single `evaluate()` call. */
+export interface TargetingResult {
+  readonly matched: boolean;
+  /** The first failing field name; undefined on match. */
+  readonly reason?: string;
+}
+
+/** Which field an `ExplainStep` corresponds to. */
+export type ExplainField =
+  | "startDate"
+  | "endDate"
+  | "platform"
+  | "screenSize"
+  | "locale"
+  | "appVersion"
+  | "routes"
+  | "attributes"
+  | "userId"
+  | "predicate";
+
+/** One step in an `explain()` trace. */
+export interface ExplainStep {
+  readonly field: ExplainField;
+  readonly matched: boolean;
+  /** Short human-readable summary; present on failures. */
+  readonly detail?: string;
+}
+
+/** Result of `explain()` — a full trace of every check performed. */
+export interface ExplainResult {
+  readonly matched: boolean;
+  readonly reason?: ExplainField;
+  readonly steps: readonly ExplainStep[];
+}
+
+/**
+ * Evaluate a targeting predicate against a context. Pure, synchronous,
+ * short-circuits at the first failing field. `evaluate` and `explain`
+ * are both sync — use `hashUserId` to precompute the `userIdBucket`
+ * field on the context when using hash-bucket targeting.
+ */
+export function evaluate(
+  targeting: EvaluableTargeting,
+  context: VariantContext | EvalContext,
+): TargetingResult;
+
+/** Thin wrapper returning `evaluate(...).matched`. */
+export function matchTargeting(
+  targeting: EvaluableTargeting,
+  context: VariantContext | EvalContext,
+): boolean;
+
+/**
+ * Walk an experiment's date gates and targeting and return a full
+ * trace. Short-circuits at the first failing step; `steps` contains
+ * every check actually performed.
+ */
+export function explain(
+  experiment: Experiment,
+  context: VariantContext | EvalContext,
+): ExplainResult;
+
+/** Match a route pattern. Supports `/foo`, `/foo/*`, `/foo/**`, `/user/:id`. */
 export function matchRoute(pattern: string, route: string): boolean;
 
 /** Match a semver range. Supports `>=1.2.0`, `^1.2.0`, `1.2.0 - 2.0.0`. */
 export function matchSemver(range: string, version: string): boolean;
+
+/**
+ * Compute a sha256 bucket (0..99) for a userId. Async because Web
+ * Crypto is async; the engine precomputes this once per context
+ * update and stores the result on `EvalContext.userIdBucket`.
+ */
+export function hashUserId(userId: string): Promise<number>;
 ```
 
 ### Assignment strategies

@@ -1,3 +1,5 @@
+import { compileGlob } from "../targeting/glob.js";
+import { parseSemver } from "../targeting/semver.js";
 import type { IssueCode } from "./codes.js";
 import { type ConfigIssue, ConfigValidationError } from "./errors.js";
 import { deepFreeze } from "./freeze.js";
@@ -316,7 +318,7 @@ function validateRoutes(field: unknown, p: string, issues: ConfigIssue[]): void 
   }
   for (let i = 0; i < field.length; i++) {
     const r = field[i];
-    if (typeof r !== "string" || !isValidGlob(r)) {
+    if (typeof r !== "string" || compileGlob(r) === null) {
       push(issues, `${rp}/${i}`, "route/glob/invalid");
     }
   }
@@ -345,7 +347,7 @@ function validateTargeting(field: unknown, p: string, issues: ConfigIssue[]): vo
   }
   if (t["appVersion"] !== undefined) {
     const v = t["appVersion"];
-    if (typeof v !== "string" || !isValidSemver(v)) {
+    if (typeof v !== "string" || parseSemver(v) === null) {
       push(issues, `${tp}/appVersion`, "targeting/appversion/invalid");
     }
   }
@@ -368,7 +370,7 @@ function validateTargeting(field: unknown, p: string, issues: ConfigIssue[]): vo
     } else {
       for (let i = 0; i < r.length; i++) {
         const v = r[i];
-        if (typeof v !== "string" || !isValidGlob(v)) {
+        if (typeof v !== "string" || compileGlob(v) === null) {
           push(issues, `${tp}/routes/${i}`, "targeting/routes/invalid");
         }
       }
@@ -537,38 +539,6 @@ function isValidIsoDate(s: string): boolean {
   if (s.length < 10) return false;
   if (Number.isNaN(Date.parse(s))) return false;
   return ISO_TAIL_RE.test(s);
-}
-
-/* Stub glob validator — Session 3 replaces with the real matcher. */
-const GLOB_RE = /^[A-Za-z0-9_\-/.:*]+$/;
-function isValidGlob(s: string): boolean {
-  if (s.length === 0 || s.includes("***")) return false;
-  if (!GLOB_RE.test(s)) return false;
-  return s === "*" || s === "**" || s[0] === "/";
-}
-
-/* Stub semver range validator — Session 3 replaces. */
-const SEMVER_CORE = /^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/;
-const SEMVER_CMP = /^(?:=|>=|<=|>|<|\^|~)?\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?(?:\+[0-9A-Za-z.-]+)?$/;
-function isValidSemver(s: string): boolean {
-  if (s.length === 0) return false;
-  const ors = s.split("||");
-  for (let i = 0; i < ors.length; i++) {
-    const part = (ors[i] as string).trim();
-    if (part.length === 0) return false;
-    const hy = part.split(/\s+-\s+/);
-    if (hy.length === 2) {
-      if (!SEMVER_CORE.test(hy[0] as string) || !SEMVER_CORE.test(hy[1] as string)) {
-        return false;
-      }
-      continue;
-    }
-    const ands = part.split(/\s+/);
-    for (let j = 0; j < ands.length; j++) {
-      if (!SEMVER_CMP.test(ands[j] as string)) return false;
-    }
-  }
-  return true;
 }
 
 /* Depth of a value inside the targeting subtree (root = 0). */

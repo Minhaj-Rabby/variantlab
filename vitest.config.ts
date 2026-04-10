@@ -5,12 +5,15 @@ export default defineConfig({
     passWithNoTests: true,
     coverage: {
       provider: "v8",
-      include: ["packages/core/src/config/**/*.ts"],
+      include: ["packages/core/src/config/**/*.ts", "packages/core/src/targeting/**/*.ts"],
       exclude: [
         "packages/core/src/config/**/*.test.ts",
         "packages/core/src/config/__tests__/**",
         "packages/core/src/config/codes.ts",
         "packages/core/src/config/types.ts",
+        "packages/core/src/targeting/**/*.test.ts",
+        "packages/core/src/targeting/__tests__/**",
+        "packages/core/src/targeting/types.ts",
         "packages/core/src/_size/**",
       ],
       thresholds: {
