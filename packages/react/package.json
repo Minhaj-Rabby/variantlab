@@ -1,0 +1,64 @@
+{
+  "name": "@variantlab/react",
+  "version": "0.0.0",
+  "description": "React hooks and components for variantlab.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "scripts": {
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "ab-testing",
+    "experiments",
+    "feature-flags",
+    "variants",
+    "variantlab",
+    "react",
+    "hooks"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/variantlab/variantlab.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/variantlab/variantlab/issues"
+  },
+  "homepage": "https://github.com/variantlab/variantlab#readme",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "dependencies": {
+    "@variantlab/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0 || ^19.0.0"
+  }
+}

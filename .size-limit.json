@@ -1,0 +1,29 @@
+[
+  {
+    "name": "@variantlab/core",
+    "path": "packages/core/dist/index.js",
+    "limit": "3 KB",
+    "gzip": true
+  },
+  {
+    "name": "@variantlab/react",
+    "path": "packages/react/dist/index.js",
+    "limit": "1.5 KB",
+    "gzip": true,
+    "ignore": ["react", "@variantlab/core"]
+  },
+  {
+    "name": "@variantlab/react-native",
+    "path": "packages/react-native/dist/index.js",
+    "limit": "4 KB",
+    "gzip": true,
+    "ignore": ["react", "react-native", "@variantlab/core"]
+  },
+  {
+    "name": "@variantlab/next",
+    "path": "packages/next/dist/index.js",
+    "limit": "2 KB",
+    "gzip": true,
+    "ignore": ["react", "next", "@variantlab/core"]
+  }
+]
