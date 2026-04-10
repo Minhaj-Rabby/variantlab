@@ -32,6 +32,8 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
+    "test": "pnpm --dir ../.. exec vitest run --project core",
+    "test:coverage": "pnpm --dir ../.. exec vitest run --coverage --project core",
     "clean": "rm -rf dist"
   },
   "keywords": [

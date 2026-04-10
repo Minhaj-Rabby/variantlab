@@ -2,6 +2,12 @@
   {
     "name": "@variantlab/core",
     "path": "packages/core/dist/index.js",
+    "limit": "3.5 KB",
+    "gzip": true
+  },
+  {
+    "name": "@variantlab/core/config",
+    "path": "packages/core/dist/_size/config.js",
     "limit": "3 KB",
     "gzip": true
   },

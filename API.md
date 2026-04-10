@@ -299,9 +299,23 @@ export function assignVariant(
 ### Errors
 
 ```ts
-/** Thrown when config validation fails. */
+/** A single validation issue surfaced by `validateConfig`. */
+export interface ConfigIssue {
+  /** RFC 6901 JSON Pointer into the source config. "" for root. */
+  readonly path: string;
+  /** Machine-readable code for programmatic handling (CLI, debug overlay). */
+  readonly code: IssueCode;
+  /** Human-readable message safe for CLI output. */
+  readonly message: string;
+}
+
+/** Union of all validation issue codes.
+ *  Narrow union in the implementation — see `packages/core/src/config/codes.ts`. */
+export type IssueCode = string;
+
+/** Thrown when config validation fails. Collects all issues before throwing. */
 export class ConfigValidationError extends Error {
-  readonly issues: Array<{ path: string; message: string }>;
+  readonly issues: ReadonlyArray<ConfigIssue>;
 }
 
 /** Thrown when HMAC verification fails. */
