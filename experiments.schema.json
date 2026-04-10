@@ -1,0 +1,251 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://variantlab.dev/schemas/experiments.schema.json",
+  "title": "variantlab experiments config",
+  "description": "Schema for the experiments.json configuration file used by all variantlab packages.",
+  "type": "object",
+  "required": ["version", "experiments"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Optional JSON Schema reference for IDE support."
+    },
+    "version": {
+      "type": "integer",
+      "const": 1,
+      "description": "Schema version. Current version is 1. The engine rejects unknown versions."
+    },
+    "signature": {
+      "type": "string",
+      "description": "Optional HMAC-SHA256 signature of the experiments array, base64url encoded. Verified via Web Crypto API when hmacKey is configured.",
+      "pattern": "^[A-Za-z0-9_-]{43}$"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Global kill switch. When false, all experiments return their default variant."
+    },
+    "experiments": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": { "$ref": "#/$defs/experiment" }
+    }
+  },
+  "$defs": {
+    "experiment": {
+      "type": "object",
+      "required": ["id", "name", "variants", "default"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+          "description": "Unique identifier. Lowercase, alphanumeric, hyphens. Max 64 chars."
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "Human-readable name shown in the debug overlay."
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "Human-readable description shown in the debug overlay."
+        },
+        "type": {
+          "enum": ["render", "value"],
+          "default": "render",
+          "description": "'render' for component-swap experiments; 'value' for primitive-return experiments."
+        },
+        "variants": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 100,
+          "items": { "$ref": "#/$defs/variant" }
+        },
+        "default": {
+          "type": "string",
+          "description": "The default variant ID. Must match one of variants[].id."
+        },
+        "routes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 256,
+            "description": "Glob pattern. Supports /foo, /foo/*, /foo/**."
+          },
+          "maxItems": 100
+        },
+        "targeting": { "$ref": "#/$defs/targeting" },
+        "assignment": {
+          "enum": ["default", "random", "sticky-hash", "weighted"],
+          "default": "default",
+          "description": "How users are assigned to variants."
+        },
+        "split": {
+          "type": "object",
+          "description": "Traffic split percentages for 'weighted' assignment. Keys are variant IDs, values are integers summing to 100.",
+          "patternProperties": {
+            "^[a-z0-9][a-z0-9-]{0,63}$": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            }
+          },
+          "additionalProperties": false
+        },
+        "mutex": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+          "description": "Mutual exclusion group. Experiments with the same mutex cannot co-run on the same user."
+        },
+        "rollback": { "$ref": "#/$defs/rollback" },
+        "status": {
+          "enum": ["draft", "active", "archived"],
+          "default": "active",
+          "description": "Lifecycle state. Archived experiments are hidden from debug overlay."
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp. Experiment returns default before this date."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp. Experiment returns default after this date."
+        },
+        "owner": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "Free-text owner name or email."
+        },
+        "overridable": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether deep link overrides are accepted for this experiment. Default false for safety."
+        }
+      }
+    },
+    "variant": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]{0,63}$"
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 128
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 512
+        },
+        "value": {
+          "description": "For 'value' type experiments, the value returned by useVariantValue. Any JSON-serializable type."
+        }
+      }
+    },
+    "targeting": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Targeting predicate. All specified fields must match for a user to be eligible.",
+      "properties": {
+        "platform": {
+          "type": "array",
+          "items": { "enum": ["ios", "android", "web", "node"] },
+          "uniqueItems": true
+        },
+        "appVersion": {
+          "type": "string",
+          "maxLength": 64,
+          "description": "Semver range, e.g. '>=1.2.0', '^1.2.0', '1.2.0 - 2.0.0'."
+        },
+        "locale": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z]{2,3}(-[A-Z]{2})?$"
+          },
+          "uniqueItems": true
+        },
+        "screenSize": {
+          "type": "array",
+          "items": { "enum": ["small", "medium", "large"] },
+          "uniqueItems": true
+        },
+        "routes": {
+          "type": "array",
+          "items": { "type": "string", "maxLength": 256 },
+          "maxItems": 100
+        },
+        "userId": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": { "type": "string" },
+              "maxItems": 10000,
+              "description": "Explicit list of user IDs."
+            },
+            {
+              "type": "object",
+              "required": ["hash", "mod"],
+              "additionalProperties": false,
+              "properties": {
+                "hash": { "type": "string", "const": "sha256" },
+                "mod": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 100,
+                  "description": "Match if (sha256(userId) % 100) < mod."
+                }
+              }
+            }
+          ]
+        },
+        "attributes": {
+          "type": "object",
+          "description": "Exact-match predicate on VariantContext.attributes.",
+          "additionalProperties": {
+            "oneOf": [
+              { "type": "string", "maxLength": 256 },
+              { "type": "number" },
+              { "type": "boolean" }
+            ]
+          }
+        }
+      }
+    },
+    "rollback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["threshold", "window"],
+      "properties": {
+        "threshold": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100,
+          "default": 3,
+          "description": "Number of crashes that trigger rollback."
+        },
+        "window": {
+          "type": "integer",
+          "minimum": 1000,
+          "maximum": 3600000,
+          "default": 60000,
+          "description": "Time window in milliseconds."
+        },
+        "persistent": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, rollback persists across sessions."
+        }
+      }
+    }
+  }
+}
