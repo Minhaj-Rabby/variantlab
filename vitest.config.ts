@@ -1,6 +1,46 @@
+import { fileURLToPath, URL } from "node:url";
 import { defineConfig } from "vitest/config";
 
+const r = (p: string): string => fileURLToPath(new URL(p, import.meta.url));
+
+/**
+ * Workspace-package aliases, applied to every project.
+ *
+ * The CI `test` job has `needs: install` — not `needs: build` — so when
+ * vitest starts, `packages/*\/dist` doesn't exist yet and vite's default
+ * resolver would follow each package's `exports` field into a file that
+ * isn't there. Aliasing to source matches the pattern the example
+ * tsconfigs use (`paths`) and keeps the test run independent of the build.
+ *
+ * Each project in `test.projects` spins up its own vite instance with its
+ * own `root:`, and does **not** inherit root-level `resolve` from the
+ * parent `defineConfig`. That's why the aliases are duplicated into every
+ * project via `resolve.alias`.
+ *
+ * Subpath aliases must come before bare-package aliases or the bare
+ * pattern would swallow `@variantlab/react-native/debug`.
+ */
+const workspaceAliases = [
+  {
+    find: /^@variantlab\/react-native\/debug$/,
+    replacement: r("./packages/react-native/src/debug.ts"),
+  },
+  {
+    find: /^@variantlab\/react-native\/qr$/,
+    replacement: r("./packages/react-native/src/qr.ts"),
+  },
+  { find: /^@variantlab\/core$/, replacement: r("./packages/core/src/index.ts") },
+  { find: /^@variantlab\/react$/, replacement: r("./packages/react/src/index.ts") },
+  {
+    find: /^@variantlab\/react-native$/,
+    replacement: r("./packages/react-native/src/index.ts"),
+  },
+  { find: /^@variantlab\/next$/, replacement: r("./packages/next/src/index.ts") },
+  { find: /^@variantlab\/cli$/, replacement: r("./packages/cli/src/index.ts") },
+];
+
 export default defineConfig({
+  resolve: { alias: workspaceAliases },
   test: {
     passWithNoTests: true,
     coverage: {
@@ -43,6 +83,7 @@ export default defineConfig({
     },
     projects: [
       {
+        resolve: { alias: workspaceAliases },
         test: {
           name: "core",
           root: "./packages/core",
@@ -52,6 +93,7 @@ export default defineConfig({
         },
       },
       {
+        resolve: { alias: workspaceAliases },
         test: {
           name: "react",
           root: "./packages/react",
@@ -62,6 +104,7 @@ export default defineConfig({
         },
       },
       {
+        resolve: { alias: workspaceAliases },
         test: {
           name: "react-native",
           root: "./packages/react-native",
@@ -72,6 +115,7 @@ export default defineConfig({
         },
       },
       {
+        resolve: { alias: workspaceAliases },
         test: {
           name: "next",
           root: "./packages/next",
@@ -81,6 +125,7 @@ export default defineConfig({
         },
       },
       {
+        resolve: { alias: workspaceAliases },
         test: {
           name: "cli",
           root: "./packages/cli",
