@@ -2,7 +2,7 @@
   {
     "name": "@variantlab/core",
     "path": "packages/core/dist/index.js",
-    "limit": "4.75 KB",
+    "limit": "6.5 KB",
     "gzip": true
   },
   {
@@ -15,6 +15,12 @@
     "name": "@variantlab/core/targeting",
     "path": "packages/core/dist/_size/targeting.js",
     "limit": "2 KB",
+    "gzip": true
+  },
+  {
+    "name": "@variantlab/core/engine",
+    "path": "packages/core/dist/_size/engine.js",
+    "limit": "6 KB",
     "gzip": true
   },
   {

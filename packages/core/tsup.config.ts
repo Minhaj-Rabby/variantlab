@@ -1,7 +1,12 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["src/index.ts", "src/_size/config.ts", "src/_size/targeting.ts"],
+  entry: [
+    "src/index.ts",
+    "src/_size/config.ts",
+    "src/_size/targeting.ts",
+    "src/_size/engine.ts",
+  ],
   format: ["esm", "cjs"],
   dts: true,
   sourcemap: true,

@@ -5,7 +5,13 @@ export default defineConfig({
     passWithNoTests: true,
     coverage: {
       provider: "v8",
-      include: ["packages/core/src/config/**/*.ts", "packages/core/src/targeting/**/*.ts"],
+      include: [
+        "packages/core/src/config/**/*.ts",
+        "packages/core/src/targeting/**/*.ts",
+        "packages/core/src/assignment/**/*.ts",
+        "packages/core/src/history/**/*.ts",
+        "packages/core/src/engine/**/*.ts",
+      ],
       exclude: [
         "packages/core/src/config/**/*.test.ts",
         "packages/core/src/config/__tests__/**",
@@ -14,6 +20,13 @@ export default defineConfig({
         "packages/core/src/targeting/**/*.test.ts",
         "packages/core/src/targeting/__tests__/**",
         "packages/core/src/targeting/types.ts",
+        "packages/core/src/assignment/**/*.test.ts",
+        "packages/core/src/assignment/__tests__/**",
+        "packages/core/src/history/**/*.test.ts",
+        "packages/core/src/history/__tests__/**",
+        "packages/core/src/history/events.ts",
+        "packages/core/src/engine/**/*.test.ts",
+        "packages/core/src/engine/__tests__/**",
         "packages/core/src/_size/**",
       ],
       thresholds: {
