@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "experiments": [
+    {
+      "id": "cta-copy",
+      "name": "CTA button copy",
+      "description": "Test which call-to-action wording converts best.",
+      "type": "value",
+      "default": "buy-now",
+      "variants": [
+        { "id": "buy-now", "label": "Buy now", "value": "Buy now" },
+        { "id": "get-started", "label": "Get started", "value": "Get started" },
+        { "id": "try-free", "label": "Try free", "value": "Try for free" }
+      ]
+    },
+    {
+      "id": "hero-layout",
+      "name": "Hero layout",
+      "description": "Swap between a compact and a wide hero.",
+      "default": "compact",
+      "variants": [
+        { "id": "compact", "label": "Compact" },
+        { "id": "wide", "label": "Wide" }
+      ]
+    },
+    {
+      "id": "pricing-badge",
+      "name": "Pricing badge",
+      "description": "Which badge copy drives more upgrade clicks?",
+      "type": "value",
+      "default": "popular",
+      "variants": [
+        { "id": "popular", "value": "Most popular" },
+        { "id": "best-value", "value": "Best value" },
+        { "id": "limited", "value": "Limited time" }
+      ]
+    }
+  ]
+}

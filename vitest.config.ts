@@ -11,6 +11,7 @@ export default defineConfig({
         "packages/core/src/assignment/**/*.ts",
         "packages/core/src/history/**/*.ts",
         "packages/core/src/engine/**/*.ts",
+        "packages/react/src/**/*.{ts,tsx}",
       ],
       exclude: [
         "packages/core/src/config/**/*.test.ts",
@@ -28,6 +29,9 @@ export default defineConfig({
         "packages/core/src/engine/**/*.test.ts",
         "packages/core/src/engine/__tests__/**",
         "packages/core/src/_size/**",
+        "packages/react/src/**/*.test.{ts,tsx}",
+        "packages/react/src/__tests__/**",
+        "packages/react/src/index.ts",
       ],
       thresholds: {
         lines: 95,
@@ -52,7 +56,8 @@ export default defineConfig({
           name: "react",
           root: "./packages/react",
           include: ["src/**/*.test.{ts,tsx}"],
-          environment: "node",
+          environment: "jsdom",
+          setupFiles: ["./src/__tests__/setup.ts"],
           passWithNoTests: true,
         },
       },
