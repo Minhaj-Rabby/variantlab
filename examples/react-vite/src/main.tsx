@@ -11,8 +11,8 @@ import { createEngine } from "@variantlab/core";
 import { VariantLabProvider } from "@variantlab/react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { App } from "./App.js";
 import experiments from "../experiments.json";
+import { App } from "./App.js";
 
 const engine = createEngine(experiments, {
   context: { userId: "demo-user", platform: "web" },

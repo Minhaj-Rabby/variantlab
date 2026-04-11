@@ -13,11 +13,12 @@
  * overrides or rebucket the user. Real apps typically move this into
  * its own `src/variantlab.ts` module.
  */
-import type { ReactElement } from "react";
-import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
+
 import { createEngine } from "@variantlab/core";
 import { VariantLabProvider } from "@variantlab/react";
 import { VariantDebugOverlay } from "@variantlab/react-native/debug";
+import type { ReactElement } from "react";
+import { SafeAreaView, StatusBar, StyleSheet } from "react-native";
 import experiments from "./experiments.json";
 import { HomeScreen } from "./src/HomeScreen.js";
 

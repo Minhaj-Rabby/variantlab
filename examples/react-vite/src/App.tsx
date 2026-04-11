@@ -9,7 +9,7 @@
  * you can see hooks reactively re-render as the engine state changes —
  * the same machinery that powers the debug overlay in other adapters.
  */
-import { Variant, useSetVariant, useVariant, useVariantValue } from "@variantlab/react";
+import { useSetVariant, useVariant, useVariantValue, Variant } from "@variantlab/react";
 import type { CSSProperties, ReactElement } from "react";
 
 export function App(): ReactElement {

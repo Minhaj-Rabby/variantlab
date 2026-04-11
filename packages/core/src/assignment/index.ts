@@ -14,11 +14,11 @@ import { assignStickyHash } from "./sticky-hash.js";
 import { assignWeighted } from "./weighted.js";
 
 export { assignDefault } from "./default.js";
+export { bucketUserId, hash32 } from "./hash.js";
+export { resolveMutex } from "./mutex.js";
 export { assignRandom } from "./random.js";
 export { assignStickyHash } from "./sticky-hash.js";
 export { assignWeighted } from "./weighted.js";
-export { resolveMutex } from "./mutex.js";
-export { bucketUserId, hash32 } from "./hash.js";
 
 export function assignVariant(experiment: Experiment, userId: string | undefined): string {
   const strategy = experiment.assignment ?? "default";

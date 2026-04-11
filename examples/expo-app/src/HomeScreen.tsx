@@ -13,15 +13,11 @@
  * The overall vibe is intentionally "Drishtikon-ish" — a dense
  * discovery home screen where every pixel is worth experimenting on.
  */
+
+import { useSetVariant, useVariant, useVariantValue, Variant } from "@variantlab/react";
 import type { ReactElement } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
-import {
-  Variant,
-  useSetVariant,
-  useVariant,
-  useVariantValue,
-} from "@variantlab/react";
-import { HeroStacked, HeroGrid, HeroSplit } from "./HeroCard.js";
+import { HeroGrid, HeroSplit, HeroStacked } from "./HeroCard.js";
 
 type LayoutId = "stacked" | "grid" | "split";
 const LAYOUT_ORDER: readonly LayoutId[] = ["stacked", "grid", "split"];
@@ -67,17 +63,14 @@ export function HomeScreen(): ReactElement {
       <Pressable
         accessibilityRole="button"
         onPress={nextLayout}
-        style={({ pressed }) => [
-          styles.cycleButton,
-          pressed ? styles.cycleButtonPressed : null,
-        ]}
+        style={({ pressed }) => [styles.cycleButton, pressed ? styles.cycleButtonPressed : null]}
       >
         <Text style={styles.cycleButtonText}>Cycle layout variant</Text>
       </Pressable>
 
       <Text style={styles.hint}>
-        Tap the flask in the bottom-right to open the variantlab debug overlay
-        and inspect every active experiment, context key, and recent event.
+        Tap the flask in the bottom-right to open the variantlab debug overlay and inspect every
+        active experiment, context key, and recent event.
       </Text>
     </ScrollView>
   );

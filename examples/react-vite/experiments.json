@@ -18,10 +18,7 @@
       "name": "Hero layout",
       "description": "Swap between a compact and a wide hero.",
       "default": "compact",
-      "variants": [
-        { "id": "compact", "label": "Compact" },
-        { "id": "wide", "label": "Wide" }
-      ]
+      "variants": [{ "id": "compact", "label": "Compact" }, { "id": "wide", "label": "Wide" }]
     },
     {
       "id": "pricing-badge",

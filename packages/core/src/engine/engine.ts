@@ -24,19 +24,20 @@
  *   9. mutex winner?            → no → return default
  *  10. assign                   → cache, emit, return
  */
+
+import { bucketUserId } from "../assignment/hash.js";
+import { assignVariant } from "../assignment/index.js";
+import { resolveMutex } from "../assignment/mutex.js";
 import type { Experiment, ExperimentsConfig, VariantContext } from "../config/types.js";
 import { validateConfig } from "../config/validator.js";
-import { assignVariant } from "../assignment/index.js";
-import { bucketUserId } from "../assignment/hash.js";
-import { resolveMutex } from "../assignment/mutex.js";
-import type { EvalContext, EvaluableTargeting } from "../targeting/types.js";
-import { evaluate } from "../targeting/evaluator.js";
-import { matchRoute } from "../targeting/glob.js";
 import type { EngineEvent } from "../history/events.js";
 import { RingBuffer } from "../history/ring-buffer.js";
+import { evaluate } from "../targeting/evaluator.js";
+import { matchRoute } from "../targeting/glob.js";
+import type { EvalContext, EvaluableTargeting } from "../targeting/types.js";
 import { CrashCounter } from "./crash-counter.js";
 import { isKilled } from "./kill-switch.js";
-import { ListenerSet, type Listener } from "./subscribe.js";
+import { type Listener, ListenerSet } from "./subscribe.js";
 import { isTimeGated } from "./time-gate.js";
 
 export type FailMode = "fail-open" | "fail-closed";
@@ -135,11 +136,7 @@ export class VariantEngine {
 
   // ---------- overrides ---------------------------------------------------
 
-  setVariant(
-    experimentId: string,
-    variantId: string,
-    source: VariantChangeSource = "user",
-  ): void {
+  setVariant(experimentId: string, variantId: string, source: VariantChangeSource = "user"): void {
     if (this.disposed) return;
     const experiment = this.experimentIndex.get(experimentId);
     if (experiment === undefined) return;

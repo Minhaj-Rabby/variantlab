@@ -1,12 +1,12 @@
+export { CrashCounter } from "./crash-counter.js";
 export { createEngine } from "./create.js";
 export {
   type EngineOptions,
   type FailMode,
-  type VariantChangeSource,
   UnknownExperimentError,
+  type VariantChangeSource,
   VariantEngine,
 } from "./engine.js";
-export { CrashCounter } from "./crash-counter.js";
 export { isKilled } from "./kill-switch.js";
+export { type Listener, ListenerSet } from "./subscribe.js";
 export { isTimeGated } from "./time-gate.js";
-export { ListenerSet, type Listener } from "./subscribe.js";

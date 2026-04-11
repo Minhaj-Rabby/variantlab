@@ -1,3 +1,4 @@
+/// <reference path="../types.d.ts" />
 /**
  * `<VariantDebugOverlay />` — the entire debug overlay surface.
  *

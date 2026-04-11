@@ -120,7 +120,7 @@ describe("validateConfig — prototype pollution defense", () => {
     expect(({} as Record<string, unknown>)["polluted"]).toBeUndefined();
     // Sanity: a freshly created object has no `polluted` key.
     const fresh = {};
-    expect(Object.prototype.hasOwnProperty.call(fresh, "polluted")).toBe(false);
+    expect("polluted" in fresh).toBe(false);
   });
 
   it("allows an empty string as a key (empty is not reserved)", () => {

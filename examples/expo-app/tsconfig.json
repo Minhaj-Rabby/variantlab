@@ -14,7 +14,15 @@
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "paths": {
+      "@variantlab/core": ["../../packages/core/src/index.ts"],
+      "@variantlab/react": ["../../packages/react/src/index.ts"],
+      "@variantlab/react-native": ["../../packages/react-native/src/index.ts"],
+      "@variantlab/react-native/debug": ["../../packages/react-native/src/debug.ts"],
+      "@variantlab/react-native/qr": ["../../packages/react-native/src/qr.ts"]
+    }
   },
   "include": ["App.tsx", "src", "experiments.json"]
 }

@@ -40,8 +40,7 @@ describe("resolveMutex", () => {
     for (let i = 0; i < 50; i++) {
       const u = `user-${i}`;
       if (
-        resolveMutex(u, "group-1", ["a", "b", "c"]) !==
-        resolveMutex(u, "group-2", ["a", "b", "c"])
+        resolveMutex(u, "group-1", ["a", "b", "c"]) !== resolveMutex(u, "group-2", ["a", "b", "c"])
       ) {
         differed = true;
         break;
