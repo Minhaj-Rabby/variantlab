@@ -1,0 +1,21 @@
+{
+  "name": "expo-app-example",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Expo / React Native example for @variantlab/react-native, with a Drishtikon-style card-layout experiment and the debug overlay mounted on top.",
+  "main": "App.tsx",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@variantlab/core": "workspace:*",
+    "@variantlab/react": "workspace:*",
+    "@variantlab/react-native": "workspace:*",
+    "react": "^19.0.0",
+    "react-native": "^0.78.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}

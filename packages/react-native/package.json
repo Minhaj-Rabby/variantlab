@@ -19,6 +19,26 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./debug": {
+      "import": {
+        "types": "./dist/debug.d.ts",
+        "default": "./dist/debug.js"
+      },
+      "require": {
+        "types": "./dist/debug.d.cts",
+        "default": "./dist/debug.cjs"
+      }
+    },
+    "./qr": {
+      "import": {
+        "types": "./dist/qr.d.ts",
+        "default": "./dist/qr.js"
+      },
+      "require": {
+        "types": "./dist/qr.d.cts",
+        "default": "./dist/qr.cjs"
+      }
+    },
     "./package.json": "./package.json"
   },
   "files": [
@@ -32,6 +52,8 @@
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
+    "test": "pnpm --dir ../.. exec vitest run --project react-native",
+    "test:coverage": "pnpm --dir ../.. exec vitest run --coverage --project react-native",
     "clean": "rm -rf dist"
   },
   "keywords": [
@@ -56,15 +78,17 @@
     "node": ">=18.17"
   },
   "dependencies": {
-    "@variantlab/core": "workspace:*"
+    "@variantlab/core": "workspace:*",
+    "@variantlab/react": "workspace:*"
   },
   "peerDependencies": {
+    "@react-native-async-storage/async-storage": "*",
+    "expo-constants": "*",
+    "expo-localization": "*",
+    "expo-secure-store": "*",
     "react": "^18.2.0 || ^19.0.0",
     "react-native": ">=0.74.0",
-    "@react-native-async-storage/async-storage": "*",
     "react-native-mmkv": "*",
-    "expo-secure-store": "*",
-    "expo-localization": "*",
     "react-native-safe-area-context": "*",
     "react-native-svg": "*"
   },
@@ -81,11 +105,20 @@
     "expo-localization": {
       "optional": true
     },
+    "expo-constants": {
+      "optional": true
+    },
     "react-native-safe-area-context": {
       "optional": true
     },
     "react-native-svg": {
       "optional": true
     }
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   }
 }

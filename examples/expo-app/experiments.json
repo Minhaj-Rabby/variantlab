@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "experiments": [
+    {
+      "id": "card-layout",
+      "name": "Hero card layout",
+      "description": "Drishtikon-inspired A/B/C test of the home-screen hero card layout. We want to know if a denser grid beats a single stacked card on mobile.",
+      "default": "stacked",
+      "variants": [
+        { "id": "stacked", "label": "Stacked" },
+        { "id": "grid", "label": "2-column grid" },
+        { "id": "split", "label": "Split hero" }
+      ]
+    },
+    {
+      "id": "cta-copy",
+      "name": "Primary CTA copy",
+      "description": "Which call-to-action drives more taps?",
+      "type": "value",
+      "default": "explore",
+      "variants": [
+        { "id": "explore", "value": "Explore" },
+        { "id": "get-started", "value": "Get started" },
+        { "id": "tap-to-begin", "value": "Tap to begin" }
+      ]
+    },
+    {
+      "id": "price-badge",
+      "name": "Price badge",
+      "description": "The little yellow chip next to the hero price.",
+      "type": "value",
+      "default": "popular",
+      "variants": [
+        { "id": "popular", "value": "Most popular" },
+        { "id": "new", "value": "New this week" },
+        { "id": "save", "value": "Save 20%" }
+      ]
+    }
+  ]
+}

@@ -174,6 +174,28 @@ export class VariantEngine {
 
   // ---------- lookup ------------------------------------------------------
 
+  /**
+   * Returns the currently loaded, deeply-frozen {@link ExperimentsConfig}.
+   *
+   * Exposed read-only so debug surfaces (e.g. `<VariantDebugOverlay />`)
+   * can display the raw config without reaching into private fields.
+   * Mutating this value has no effect on the engine.
+   */
+  getConfig(): ExperimentsConfig {
+    return this.config;
+  }
+
+  /**
+   * Returns a shallow copy of the current {@link VariantContext}.
+   *
+   * A copy is returned rather than the live object so callers can't
+   * accidentally mutate engine state. Use {@link updateContext} to
+   * change it.
+   */
+  getContext(): VariantContext {
+    return { ...this.context };
+  }
+
   getExperiments(route?: string): readonly Experiment[] {
     if (route === undefined) return this.config.experiments;
     return this.config.experiments.filter((exp) => {

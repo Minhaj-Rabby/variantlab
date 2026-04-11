@@ -67,6 +67,7 @@ export default defineConfig({
           root: "./packages/react-native",
           include: ["src/**/*.test.{ts,tsx}"],
           environment: "node",
+          setupFiles: ["./src/__tests__/setup.ts"],
           passWithNoTests: true,
         },
       },
