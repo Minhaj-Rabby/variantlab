@@ -34,7 +34,12 @@ import {
   useMemo,
   useState,
 } from "react";
-import { useVariantLabEngine } from "../hooks/use-variant-lab-engine.js";
+// IMPORTANT: import from the package's own public API so that the debug
+// entry-point shares the exact same React context singleton that
+// VariantLabProvider writes to.  If we used a relative path here, tsup
+// would inline a second copy of the context module into debug.js and
+// consumers would hit "no <VariantLabProvider> found".
+import { useVariantLabEngine } from "@variantlab/react";
 import { filterExperiments } from "./filter.js";
 import { type Corner, FloatingButton } from "./floating-button.js";
 import { registerOverlay } from "./imperative.js";
