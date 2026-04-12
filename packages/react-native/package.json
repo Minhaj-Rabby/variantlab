@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/react-native",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "React Native and Expo bindings for variantlab.",
   "license": "MIT",
   "type": "module",
@@ -46,8 +46,7 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",

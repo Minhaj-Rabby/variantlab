@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/react",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "React hooks and components for variantlab.",
   "license": "MIT",
   "type": "module",
@@ -36,8 +36,7 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",

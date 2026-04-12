@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/core",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "The framework-agnostic variantlab engine. Zero dependencies, runs anywhere.",
   "license": "MIT",
   "type": "module",
@@ -27,8 +27,7 @@
     "README.md"
   ],
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
   "scripts": {
     "build": "tsup",
