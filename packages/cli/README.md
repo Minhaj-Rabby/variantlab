@@ -2,16 +2,16 @@
 
 > Command-line tool for variantlab — scaffold, generate types, validate configs, and evaluate experiments.
 
-![npm version](https://img.shields.io/npm/v/@variantlab/cli/alpha?label=npm&color=blue)
+![npm version](https://img.shields.io/npm/v/@variantlab/cli?label=npm&color=blue)
 
 ## Install
 
 ```bash
 # Use via npx (no install needed)
-npx @variantlab/cli@alpha init
+npx @variantlab/cli init
 
 # Or install globally
-npm install -g @variantlab/cli@alpha
+npm install -g @variantlab/cli
 ```
 
 ## Commands

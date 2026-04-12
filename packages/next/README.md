@@ -2,7 +2,7 @@
 
 Next.js 14 and 15 bindings for variantlab — App Router, Pages Router, and Edge runtime.
 
-> ![npm version](https://img.shields.io/npm/v/@variantlab/next/alpha?label=npm&color=blue)
+> ![npm version](https://img.shields.io/npm/v/@variantlab/next?label=npm&color=blue)
 
 ## What this package gives you
 

@@ -2,13 +2,13 @@
 
 > React hooks and components for variantlab — the universal, zero-dependency A/B testing toolkit.
 
-![npm version](https://img.shields.io/npm/v/@variantlab/react/alpha?label=npm&color=blue)
+![npm version](https://img.shields.io/npm/v/@variantlab/react?label=npm&color=blue)
 ![bundle size](https://img.shields.io/badge/gzip-%3C2KB-brightgreen)
 
 ## Install
 
 ```bash
-npm install @variantlab/core@alpha @variantlab/react@alpha
+npm install @variantlab/core @variantlab/react
 ```
 
 **Peer dependencies:** `react ^18.2.0 || ^19.0.0`
@@ -383,7 +383,7 @@ document.addEventListener("keydown", (e) => {
 Generate TypeScript types from your config so typos become compile errors:
 
 ```bash
-npx @variantlab/cli@alpha generate
+npx @variantlab/cli generate
 ```
 
 After running, `useVariant("hero-layout")` returns `"centered" | "split"` as a literal union type. Passing a non-existent experiment ID like `useVariant("typo")` is a compile error.

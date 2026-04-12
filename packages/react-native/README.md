@@ -2,13 +2,13 @@
 
 > React Native and Expo bindings for variantlab — storage adapters, auto-context, deep links, debug overlay, and QR sharing.
 
-![npm version](https://img.shields.io/npm/v/@variantlab/react-native/alpha?label=npm&color=blue)
+![npm version](https://img.shields.io/npm/v/@variantlab/react-native?label=npm&color=blue)
 ![bundle size](https://img.shields.io/badge/gzip-%3C4KB-brightgreen)
 
 ## Install
 
 ```bash
-npm install @variantlab/core@alpha @variantlab/react@alpha @variantlab/react-native@alpha
+npm install @variantlab/core @variantlab/react @variantlab/react-native
 ```
 
 **Peer dependencies (required):**
@@ -505,7 +505,7 @@ if (result.ok) {
 Generate TypeScript types so experiment IDs and variant IDs are checked at compile time:
 
 ```bash
-npx @variantlab/cli@alpha generate
+npx @variantlab/cli generate
 ```
 
 After codegen, `useVariant("card-layout")` returns `"standard" | "compact" | "pip-thumbnail"` as a literal type. Typos become compile errors.
