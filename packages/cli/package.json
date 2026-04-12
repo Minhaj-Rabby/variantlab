@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/cli",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Command-line tool for variantlab: init, generate, validate, eval.",
   "license": "MIT",
   "type": "module",
