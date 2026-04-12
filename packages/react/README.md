@@ -324,6 +324,60 @@ export default function App() {
 
 ---
 
+## Debug overlay
+
+A floating button that opens a side panel for viewing and overriding experiments during development. Only included when you import from `@variantlab/react/debug` — production bundles are never affected.
+
+```tsx
+import { VariantDebugOverlay } from "@variantlab/react/debug";
+
+export default function App() {
+  return (
+    <VariantLabProvider engine={engine}>
+      <Router />
+      {process.env.NODE_ENV === "development" && <VariantDebugOverlay />}
+    </VariantLabProvider>
+  );
+}
+```
+
+What the overlay shows:
+- All active experiments with their current variant
+- Click any experiment to expand and switch variants
+- Search/filter experiments by name or ID
+- Current targeting context (userId, platform, locale, etc.)
+- Full config summary (version, experiment count, kill-switch state)
+- Event history (assignments, changes, rollbacks, errors)
+
+### Customization
+
+```tsx
+// Change the floating button position
+<VariantDebugOverlay position="bottom-left" />
+
+// Hide the floating button (open programmatically instead)
+<VariantDebugOverlay hideButton />
+
+// Custom theme colors
+<VariantDebugOverlay theme={{ accent: "#a78bfa" }} />
+
+// Force enable in non-development builds (e.g. QA)
+<VariantDebugOverlay forceEnable />
+```
+
+### Programmatic control
+
+```ts
+import { openDebugOverlay, closeDebugOverlay } from "@variantlab/react/debug";
+
+// Open from a keyboard shortcut
+document.addEventListener("keydown", (e) => {
+  if (e.key === "F12" && e.shiftKey) openDebugOverlay();
+});
+```
+
+---
+
 ## Type safety with codegen
 
 Generate TypeScript types from your config so typos become compile errors:

@@ -1020,18 +1020,37 @@ export function createMMKVStorageAdapter(): Storage;
 export function createSecureStoreAdapter(): Storage;
 ```
 
-### Debug overlay
+### Debug overlay (React Native — `@variantlab/react-native/debug`)
 
 ```tsx
 export const VariantDebugOverlay: React.FC<{
-  shakeToOpen?: boolean;
+  forceEnable?: boolean;
   routeFilter?: boolean;
   position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   hideButton?: boolean;
 }>;
 
 export function openDebugOverlay(): void;
+export function closeDebugOverlay(): void;
 ```
+
+### Debug overlay (React Web — `@variantlab/react/debug`)
+
+```tsx
+export const VariantDebugOverlay: React.FC<{
+  forceEnable?: boolean;
+  routeFilter?: boolean;
+  position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+  hideButton?: boolean;
+  theme?: Partial<OverlayTheme>;
+  offset?: { x: number; y: number };
+}>;
+
+export function openDebugOverlay(): void;
+export function closeDebugOverlay(): void;
+```
+
+Also re-exported from `@variantlab/next/debug` with `"use client"` directive.
 
 ### Deep link handler
 
@@ -1308,7 +1327,7 @@ We will:
 - `@variantlab/vue` — Vue 3 composables + components
 - `@variantlab/vanilla` — plain JS/TS helpers
 - `@variantlab/devtools` — Chrome/Firefox browser extension
-- React web `VariantDebugOverlay`
+- ~~React web `VariantDebugOverlay`~~ — **Done** (available in `@variantlab/react/debug` and `@variantlab/next/debug`)
 
 ## Phase 3: Ecosystem (v0.3)
 

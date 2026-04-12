@@ -89,6 +89,14 @@ Shows:
 | 3 | I/O error |
 | 4 | Invalid arguments |
 
+## Visual debugging
+
+The CLI's `eval` command is the terminal equivalent of the debug overlay available in the UI packages. For a visual, interactive debug experience, see:
+
+- **React**: `import { VariantDebugOverlay } from "@variantlab/react/debug"`
+- **Next.js**: `import { VariantDebugOverlay } from "@variantlab/next/debug"`
+- **React Native**: `import { VariantDebugOverlay } from "@variantlab/react-native/debug"`
+
 ## Global options
 
 ```

@@ -91,12 +91,37 @@ export default function ClientDemo() {
 }
 ```
 
+## Debug overlay
+
+A side-panel overlay for viewing and overriding experiments during development. Includes the `"use client"` directive so it works in App Router without extra wrappers.
+
+```tsx
+// app/layout.tsx
+import { VariantDebugOverlay } from "@variantlab/next/debug";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <VariantLabProvider config={experiments} {...props}>
+          {children}
+          {process.env.NODE_ENV === "development" && <VariantDebugOverlay />}
+        </VariantLabProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+The overlay is tree-shakeable — it only ships when you import `@variantlab/next/debug`. See the [`@variantlab/react` README](../react/README.md#debug-overlay) for full customization options (position, theme, programmatic open/close).
+
 ## Subpath exports
 
 | Subpath | Contents | `"use client"` |
 |---|---|---|
 | `@variantlab/next` | Server helpers, middleware factory, cookie helpers, shared types | ❌ |
 | `@variantlab/next/client` | `VariantLabProvider`, all React hooks + components | ✅ |
+| `@variantlab/next/debug` | `VariantDebugOverlay` + imperative open/close | ✅ |
 | `@variantlab/next/app-router` | App Router-scoped re-exports + `readPayloadFromCookies()` | ❌ |
 | `@variantlab/next/pages-router` | Pages Router-scoped re-exports + `readPayloadFromReq(req)` | ❌ |
 
