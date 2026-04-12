@@ -40,8 +40,15 @@
   {
     "name": "@variantlab/next",
     "path": "packages/next/dist/index.js",
-    "limit": "2 KB",
+    "limit": "2.25 KB",
     "gzip": true,
     "ignore": ["react", "next", "@variantlab/core"]
+  },
+  {
+    "name": "@variantlab/next/client",
+    "path": "packages/next/dist/client/hooks.js",
+    "limit": "1.5 KB",
+    "gzip": true,
+    "ignore": ["react", "next", "next/navigation", "@variantlab/core"]
   }
 ]

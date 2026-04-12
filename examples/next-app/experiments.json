@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "experiments": [
+    {
+      "id": "hero-copy",
+      "name": "Hero copy",
+      "type": "value",
+      "assignment": "sticky-hash",
+      "default": "control",
+      "variants": [
+        { "id": "control", "value": "Ship experiments faster." },
+        { "id": "treatment", "value": "A/B test everything, everywhere." }
+      ]
+    },
+    {
+      "id": "cta-color",
+      "name": "CTA button color",
+      "type": "value",
+      "assignment": "sticky-hash",
+      "default": "blue",
+      "variants": [
+        { "id": "blue", "value": "#2563eb" },
+        { "id": "red", "value": "#dc2626" },
+        { "id": "green", "value": "#16a34a" }
+      ]
+    },
+    {
+      "id": "layout",
+      "name": "Page layout",
+      "type": "render",
+      "assignment": "weighted",
+      "default": "compact",
+      "split": { "compact": 50, "expanded": 50 },
+      "variants": [
+        { "id": "compact", "label": "Compact" },
+        { "id": "expanded", "label": "Expanded" }
+      ]
+    }
+  ]
+}

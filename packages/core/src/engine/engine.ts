@@ -48,6 +48,20 @@ export interface EngineOptions {
   readonly context?: VariantContext;
   readonly failMode?: FailMode;
   readonly historySize?: number;
+  /**
+   * Pre-resolved assignments to seed the engine cache with at construction.
+   *
+   * Used by SSR adapters (e.g. `@variantlab/next`) to hydrate a client-side
+   * engine with the exact variants the server already rendered, so the first
+   * `getVariant` call short-circuits on a cache hit instead of re-evaluating
+   * targeting/assignment and risking hydration mismatches.
+   *
+   * Entries whose experiment id is not in the config, or whose variant id is
+   * not in the experiment's variants, are silently ignored. Seeding does NOT
+   * emit an `assignment` event — events fire on the first real `getVariant`
+   * call. `updateContext`/`loadConfig` still clear the cache.
+   */
+  readonly initialAssignments?: Readonly<Record<string, string>>;
 }
 
 /** Thrown in fail-closed mode when an experiment id isn't in the config. */
@@ -81,7 +95,26 @@ export class VariantEngine {
     this.evalContext = buildEvalContext(this.context);
     this.failMode = options.failMode ?? "fail-open";
     this.history = new RingBuffer<EngineEvent>(options.historySize ?? 500);
+    this.seedInitialAssignments(options.initialAssignments);
     this.emit({ type: "ready", config });
+  }
+
+  /**
+   * Copy caller-supplied `{ experimentId: variantId }` pairs into the
+   * in-memory cache so the next `getVariant` call returns them without
+   * re-evaluating targeting. Invalid pairs are silently dropped — seeding
+   * is best-effort hydration, never a hard error.
+   */
+  private seedInitialAssignments(seed: Readonly<Record<string, string>> | undefined): void {
+    if (seed === undefined) return;
+    for (const experimentId of Object.keys(seed)) {
+      const variantId = seed[experimentId];
+      if (typeof variantId !== "string" || variantId.length === 0) continue;
+      const experiment = this.experimentIndex.get(experimentId);
+      if (experiment === undefined) continue;
+      if (!experiment.variants.some((v) => v.id === variantId)) continue;
+      this.cache.set(experimentId, variantId);
+    }
   }
 
   // ---------- resolution ---------------------------------------------------
