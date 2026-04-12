@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
-import { mkdtemp, rm, readFile, writeFile, mkdir } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { generate } from "../commands/generate.js";
 
 const VALID_CONFIG = JSON.stringify({
@@ -98,11 +98,7 @@ describe("generate command", () => {
   });
 
   it("returns 2 for invalid config schema", async () => {
-    await writeFile(
-      join(cwd, "experiments.json"),
-      JSON.stringify({ version: 999 }),
-      "utf-8",
-    );
+    await writeFile(join(cwd, "experiments.json"), JSON.stringify({ version: 999 }), "utf-8");
     const code = await generate();
     expect(code).toBe(2);
   });

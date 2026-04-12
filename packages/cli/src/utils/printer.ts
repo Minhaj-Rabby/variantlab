@@ -61,5 +61,5 @@ export function error(msg: string): void {
 }
 
 export function verbose(msg: string, isVerbose: boolean): void {
-  if (isVerbose) console.log(`${color.dim("  " + msg)}`);
+  if (isVerbose) console.log(`${color.dim(`  ${msg}`)}`);
 }

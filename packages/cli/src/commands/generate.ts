@@ -1,6 +1,6 @@
 import { watch } from "node:fs";
 import { resolve } from "node:path";
-import { validateConfig, type ExperimentsConfig, type Experiment } from "@variantlab/core";
+import { type Experiment, type ExperimentsConfig, validateConfig } from "@variantlab/core";
 import { fileExists, readTextFile, writeTextFile } from "../utils/file.js";
 import * as print from "../utils/printer.js";
 
@@ -122,7 +122,7 @@ function emitTypeScript(config: ExperimentsConfig): string {
   lines.push('  VariantLabExperiments[T]["variants"];');
   lines.push("");
   lines.push("export type VariantValueType<T extends ExperimentId> =");
-  lines.push('  VariantLabExperiments[T] extends { value: infer V } ? V : never;');
+  lines.push("  VariantLabExperiments[T] extends { value: infer V } ? V : never;");
   lines.push("");
 
   return lines.join("\n");
@@ -133,9 +133,7 @@ function variantUnion(exp: Experiment): string {
 }
 
 function valueUnion(exp: Experiment): string {
-  const values = exp.variants
-    .map((v) => v.value)
-    .filter((v) => v !== undefined);
+  const values = exp.variants.map((v) => v.value).filter((v) => v !== undefined);
 
   if (values.length === 0) return "never";
 

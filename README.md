@@ -2,7 +2,8 @@
 
 > One config. Every framework. Zero lock-in. The universal, open-source A/B testing and feature-flagging toolkit.
 
-![status](https://img.shields.io/badge/status-pre--alpha-orange)
+![npm version](https://img.shields.io/npm/v/@variantlab/core/alpha?label=npm&color=blue)
+![status](https://img.shields.io/badge/status-alpha-yellow)
 ![license](https://img.shields.io/badge/license-MIT-blue)
 ![bundle size](https://img.shields.io/badge/core-%3C3KB%20gz-brightgreen)
 ![dependencies](https://img.shields.io/badge/runtime%20deps-0-brightgreen)
@@ -124,7 +125,7 @@ npm install @variantlab/core @variantlab/react
       "id": "cta-copy",
       "name": "CTA button copy",
       "type": "value",
-      "default": "Buy now",
+      "default": "buy-now",
       "variants": [
         { "id": "buy-now", "value": "Buy now" },
         { "id": "get-started", "value": "Get started" },
@@ -132,33 +133,32 @@ npm install @variantlab/core @variantlab/react
       ]
     },
     {
-      "id": "news-card-layout",
-      "name": "News card layout",
+      "id": "hero-layout",
+      "name": "Hero section layout",
       "type": "render",
-      "routes": ["/", "/feed"],
-      "targeting": { "screenSize": ["small"] },
-      "default": "responsive",
+      "default": "centered",
       "variants": [
-        { "id": "responsive" },
-        { "id": "scale-to-fit" },
-        { "id": "pip-thumbnail" }
+        { "id": "centered" },
+        { "id": "split" }
       ]
     }
   ]
 }
 ```
 
-### 3. Wrap your app
+### 3. Create the engine and wrap your app
 
 ```tsx
-import { VariantLabProvider, VariantDebugOverlay } from "@variantlab/react";
+import { createEngine } from "@variantlab/core";
+import { VariantLabProvider } from "@variantlab/react";
 import experiments from "./experiments.json";
+
+const engine = createEngine(experiments);
 
 export default function App() {
   return (
-    <VariantLabProvider config={experiments}>
+    <VariantLabProvider engine={engine}>
       <YourApp />
-      {process.env.NODE_ENV !== "production" && <VariantDebugOverlay />}
     </VariantLabProvider>
   );
 }
@@ -174,13 +174,12 @@ function CheckoutButton() {
   return <button>{copy}</button>;
 }
 
-function NewsCard(props) {
+function HeroSection() {
   return (
-    <Variant experimentId="news-card-layout">
+    <Variant experimentId="hero-layout" fallback={<CenteredHero />}>
       {{
-        responsive: <ResponsiveCard {...props} />,
-        "scale-to-fit": <ScaleToFitCard {...props} />,
-        "pip-thumbnail": <PipCard {...props} />,
+        centered: <CenteredHero />,
+        split: <SplitHero />,
       }}
     </Variant>
   );
@@ -286,9 +285,22 @@ Full rationale in [`docs/design/design-principles.md`](./docs/design/design-prin
 
 ## Project status
 
-**Pre-alpha.** We are currently in [Phase 0: Foundation](./docs/phases/phase-0-foundation.md) — locking the API surface, writing design documents, and validating assumptions. **No code has been written yet.** This is intentional.
+**Alpha (v0.1.0).** [Phase 1: MVP](./docs/phases/phase-1-mvp.md) is complete. All five packages are built, tested, and versioned at `0.1.0`:
 
-The first production driver is the [Drishtikon Mobile](https://github.com/drishtikon/mobile) app, which will migrate from its hand-rolled `CardResizeModeContext` to `@variantlab/react-native` as the package's first real-world integration.
+- `@variantlab/core` — config validation, targeting evaluator, 5 assignment strategies, history, kill switch, time gate, crash rollback. 0 runtime deps, < 3 KB gzipped.
+- `@variantlab/react` — provider, 6 hooks, 3 components. < 2 KB gzipped.
+- `@variantlab/react-native` — storage adapters (AsyncStorage, MMKV, SecureStore), deep links, debug overlay. < 4 KB gzipped.
+- `@variantlab/next` — SSR support, cookie-based sticky assignment, edge middleware, App Router + Pages Router.
+- `@variantlab/cli` — `init`, `generate`, `validate`, `eval` commands. Zero runtime deps.
+
+603 tests passing across 61 test files. All size budgets enforced in CI.
+
+The first production integration is [Drishtikon Mobile](https://github.com/drishtikon/mobile), which migrated from its hand-rolled `CardResizeModeContext` to `@variantlab/react-native` with 30 card-mode variants.
+
+### Example apps
+
+- [`examples/expo-app`](./examples/expo-app) — Expo + React Native with debug overlay
+- [`examples/react-vite`](./examples/react-vite) — React 19 + Vite
 
 ---
 
@@ -335,8 +347,8 @@ The first production driver is the [Drishtikon Mobile](https://github.com/drisht
 
 ### Phases (`docs/phases/`)
 
-- [`phase-0-foundation.md`](./docs/phases/phase-0-foundation.md) — docs and design (current)
-- [`phase-1-mvp.md`](./docs/phases/phase-1-mvp.md) — core + react + react-native + next + cli
+- [`phase-0-foundation.md`](./docs/phases/phase-0-foundation.md) — docs and design (complete)
+- [`phase-1-mvp.md`](./docs/phases/phase-1-mvp.md) — core + react + react-native + next + cli (complete)
 - [`phase-2-expansion.md`](./docs/phases/phase-2-expansion.md) — remix + vue + vanilla + devtools
 - [`phase-3-ecosystem.md`](./docs/phases/phase-3-ecosystem.md) — svelte + solid + astro + nuxt + addons
 - [`phase-4-advanced.md`](./docs/phases/phase-4-advanced.md) — HMAC + crash rollback + time travel
@@ -346,14 +358,14 @@ The first production driver is the [Drishtikon Mobile](https://github.com/drisht
 
 ## Contributing
 
-variantlab is pre-alpha and we are actively seeking contributors who want to shape the API from day one. Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and open a discussion on GitHub before filing PRs.
+variantlab is in alpha and we welcome contributors. Read [`CONTRIBUTING.md`](./CONTRIBUTING.md) and open a discussion on GitHub before filing PRs.
 
 Good first areas to contribute:
 
-- Review the API surface in [`API.md`](./API.md) and propose changes
+- Try the quick-start above and report friction
+- Draft a framework adapter for Phase 2 (Vue, Remix, Svelte, Solid)
 - Audit the threat model in [`SECURITY.md`](./SECURITY.md)
-- Draft a framework adapter spec for a framework not yet planned
-- Propose naming alternatives in [`docs/research/naming-rationale.md`](./docs/research/naming-rationale.md)
+- Add tests or improve coverage
 
 ---
 

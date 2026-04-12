@@ -22,7 +22,7 @@ export function parseArgs(argv: readonly string[]): ParsedArgs {
 
   let i = 0;
   while (i < argv.length) {
-    const arg = argv[i]!;
+    const arg = argv[i] as string;
 
     if (arg === "--") {
       positionals.push(...argv.slice(i + 1));
@@ -50,7 +50,7 @@ export function parseArgs(argv: readonly string[]): ParsedArgs {
         }
       }
     } else if (arg.startsWith("-") && arg.length === 2) {
-      const key = arg[1]!;
+      const key = arg[1] as string;
       const next = argv[i + 1];
       if (next !== undefined && !next.startsWith("-")) {
         flags[key] = next;

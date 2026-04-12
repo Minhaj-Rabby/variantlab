@@ -2,26 +2,25 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Repository status: Phase 1 (MVP in progress)
+## Repository status: Phase 1 (MVP complete — v0.1.0)
 
-Phase 0 is complete — the docs under `README.md`, `ARCHITECTURE.md`, `API.md`, `SECURITY.md`, `ROADMAP.md`, and the `docs/` tree are the locked design. The project is now in [Phase 1: MVP](./docs/phases/phase-1-mvp.md), building the packages described in `ARCHITECTURE.md`. Nothing has been published to npm yet; every package `version` is still `0.0.0`.
+Phase 0 (design) and Phase 1 (MVP) are complete. All five packages are at version `0.1.0`. The project is ready for Phase 2 work (Vue, Remix, Svelte, Solid adapters).
 
 On-disk reality (keep this section accurate as work lands):
 
-- `packages/core/` — substantial. Config loader/validator (`config/`), targeting evaluator with operators for platform, appVersion, locale, screenSize, routes, userId, attributes (`targeting/`), assignment strategies default/random/sticky-hash/weighted/mutex (`assignment/`), history ring buffer (`history/`), engine primitives create/subscribe/kill-switch/time-gate/crash-counter (`engine/`). Unit tests sit alongside each module under `__tests__/`. Predicate targeting, HMAC verifier, and explicit prototype-pollution guards are still TBD.
-- `packages/react/` — provider/context, hooks (`use-variant`, `use-variant-value`, `use-experiment`, `use-set-variant`, `use-variant-lab-engine`, `use-route-experiments`), components (`<Variant>`, `<VariantValue>`, `<VariantErrorBoundary>`), with tests including a strict-mode suite. `<VariantDebugOverlay>` is not yet implemented.
-- `packages/react-native/` — storage adapters (memory, AsyncStorage, MMKV, SecureStore), deep-link handling, debug overlay, QR helper.
-- `packages/next/` — **stub only** (`src/index.ts` exports a `VERSION` constant). M3 has not started.
-- `packages/cli/` — **stub only**. `init`/`generate`/`validate`/`eval` are not implemented.
-- `examples/expo-app` and `examples/react-vite` exist. `examples/nextjs-app` (called out in the Phase 1 exit criteria) does not yet exist.
+- `packages/core/` — complete. Config loader/validator (`config/`), targeting evaluator with operators for platform, appVersion, locale, screenSize, routes, userId, attributes, predicate (`targeting/`), assignment strategies default/random/sticky-hash/weighted/mutex (`assignment/`), history ring buffer (`history/`), engine primitives create/subscribe/kill-switch/time-gate/crash-counter (`engine/`). Unit tests sit alongside each module under `__tests__/`. HMAC verifier deferred to Phase 4. `<VariantDebugOverlay>` for web deferred to Phase 2.
+- `packages/react/` — complete. Provider/context, hooks (`use-variant`, `use-variant-value`, `use-experiment`, `use-set-variant`, `use-variant-lab-engine`, `use-route-experiments`), components (`<Variant>`, `<VariantValue>`, `<VariantErrorBoundary>`), with tests including a strict-mode suite.
+- `packages/react-native/` — complete. Storage adapters (memory, AsyncStorage, MMKV, SecureStore), deep-link handling, debug overlay with bottom sheet, QR helper.
+- `packages/next/` — complete. SSR support, cookie-based sticky assignment, edge-compatible middleware, App Router + Pages Router helpers, client hooks.
+- `packages/cli/` — complete. `init`, `generate` (with --watch), `validate`, `eval` commands. Hand-rolled arg parser, zero runtime deps (only `@variantlab/core`).
+- `examples/expo-app` and `examples/react-vite` exist. `examples/nextjs-app` does not yet exist.
 - The workspace uses `packages/*` and `examples/*` in `pnpm-workspace.yaml` — there is no `apps/` directory. Any reference to `apps/` in older docs is historical.
 
 Practical implications for working in this repo:
 
-- `pnpm install`, `pnpm -r build`, `pnpm test`, and `pnpm typecheck` are all valid now. Vitest runs via `vitest run` at the root; `vitest.config.ts` aliases workspace packages so tests resolve from source.
-- Scaffolding new packages, adding `tsconfig.json`s, wiring `tsup`, and evolving `.github/workflows/ci.yml` are in scope. The current active milestones are finishing M1/M2 polish and starting M3 (Next.js adapter + CLI).
+- `pnpm install`, `pnpm -r build`, `pnpm test`, and `pnpm typecheck` are all valid now. Vitest runs via `vitest run` at the root; `vitest.config.ts` aliases workspace packages so tests resolve from source. 603 tests across 61 files.
 - Docs and code must stay in sync: `API.md`, `ARCHITECTURE.md`, and the relevant `docs/features/*.md` remain the authoritative spec. If code diverges from a spec, update the spec in the same change (per `CONTRIBUTING.md`).
-- Phase 1 exit criteria and milestones live in `docs/phases/phase-1-mvp.md`. Consult that file before picking up new work.
+- Phase 2 scope lives in `docs/phases/phase-2-expansion.md`. Consult that file before picking up new work.
 
 ## Documentation topology
 
@@ -31,7 +30,7 @@ The docs are deliberately structured so each concern lives in exactly one place.
 - **`docs/research/`** — external/empirical inputs (competitors, bundle-size analysis, SSR quirks, naming, security threats, origin story). New research goes here.
 - **`docs/design/`** — normative design decisions (`design-principles.md` is the 8 principles, `config-format.md`, `targeting-dsl.md`, `api-philosophy.md`). These are the "why".
 - **`docs/features/`** — per-feature specs for the 10 killer features (codegen, debug overlay, targeting, value experiments, multivariate, crash rollback, QR sharing, HMAC signing, time travel). Each is self-contained.
-- **`docs/phases/`** — phase-by-phase execution plan (0 foundation complete, 1 MVP current, 2 expansion, 3 ecosystem, 4 advanced, 5 v1.0). `phase-1-kickoff-prompts.md` contains the prompts that kicked off Phase 1 implementation.
+- **`docs/phases/`** — phase-by-phase execution plan (0 foundation complete, 1 MVP complete, 2 expansion next, 3 ecosystem, 4 advanced, 5 v1.0). `phase-1-kickoff-prompts.md` contains the prompts that kicked off Phase 1 implementation.
 - **`docs/adapters/`** — per-framework adapter specs (stubs in Phase 0, filled in later phases).
 
 `CONTRIBUTING.md` states the cross-cutting rule: API changes land in `API.md` first, feature changes update the corresponding `docs/features/*.md`, architecture changes update `ARCHITECTURE.md`. Keep these in sync in the same change.

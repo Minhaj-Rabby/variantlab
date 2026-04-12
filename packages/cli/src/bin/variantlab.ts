@@ -128,10 +128,9 @@ async function main(): Promise<void> {
       }
       const { validate } = await import("../commands/validate.js");
       const configPath = args.positionals[0];
-      const code = await validate(
-        typeof configPath === "string" ? configPath : undefined,
-        { verbose: isVerbose },
-      );
+      const code = await validate(typeof configPath === "string" ? configPath : undefined, {
+        verbose: isVerbose,
+      });
       process.exit(code);
       break;
     }
@@ -143,15 +142,13 @@ async function main(): Promise<void> {
       }
       const { evalCommand } = await import("../commands/eval.js");
       const configPath = args.positionals[0];
-      const code = await evalCommand(
-        typeof configPath === "string" ? configPath : undefined,
-        {
-          experiment: typeof args.flags.experiment === "string" ? args.flags.experiment : undefined,
-          context: typeof args.flags.context === "string" ? args.flags.context : undefined,
-          contextFile: typeof args.flags.contextFile === "string" ? args.flags.contextFile : undefined,
-          verbose: isVerbose,
-        },
-      );
+      const code = await evalCommand(typeof configPath === "string" ? configPath : undefined, {
+        experiment: typeof args.flags.experiment === "string" ? args.flags.experiment : undefined,
+        context: typeof args.flags.context === "string" ? args.flags.context : undefined,
+        contextFile:
+          typeof args.flags.contextFile === "string" ? args.flags.contextFile : undefined,
+        verbose: isVerbose,
+      });
       process.exit(code);
       break;
     }

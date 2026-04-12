@@ -1,11 +1,11 @@
 import { resolve } from "node:path";
 import {
-  validateConfig,
   ConfigValidationError,
-  explain,
   createEngine,
-  type VariantContext,
   type ExperimentsConfig,
+  explain,
+  type VariantContext,
+  validateConfig,
 } from "@variantlab/core";
 import { fileExists, readTextFile } from "../utils/file.js";
 import * as print from "../utils/printer.js";

@@ -1,7 +1,7 @@
 {
   "name": "expo-app-example",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Expo / React Native example for @variantlab/react-native, with a Drishtikon-style card-layout experiment and the debug overlay mounted on top.",
   "main": "App.tsx",
   "scripts": {

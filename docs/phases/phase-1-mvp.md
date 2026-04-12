@@ -1,6 +1,6 @@
 # Phase 1 — MVP (v0.1)
 
-**Status**: Not started
+**Status**: Complete (v0.1.0)
 **Goal**: Ship a usable alpha that covers 80% of the value with 20% of the eventual code.
 **Target version**: `0.1.0`
 
@@ -38,74 +38,74 @@ Phase 1 is done when:
 
 ### Core engine (`@variantlab/core`)
 
-- [ ] `createEngine(config, options)` factory
-- [ ] `VariantContext` auto-population hooks (optional)
-- [ ] Config validation (schema, size, duplicates, defaults)
-- [ ] Targeting evaluator: `platform`, `appVersion`, `locale`, `screenSize`, `routes`, `userId`, `attributes`, `predicate`
-- [ ] Assignment strategies: `default`, `random`, `sticky-hash`, `weighted`
-- [ ] Mutex groups
-- [ ] Kill switch and archived status
-- [ ] Fail-open / fail-closed modes
-- [ ] `subscribe(listener)` for reactivity
-- [ ] `updateContext(partial)` for runtime context updates
-- [ ] `setVariant` / `clearVariant` / `resetAll`
-- [ ] In-memory history ring buffer
-- [ ] Hand-rolled semver matcher
-- [ ] Hand-rolled glob matcher
-- [ ] Hand-rolled HMAC verifier (Web Crypto)
-- [ ] Prototype pollution guards
-- [ ] `Object.freeze` on loaded config
+- [x] `createEngine(config, options)` factory
+- [x] `VariantContext` auto-population hooks (optional)
+- [x] Config validation (schema, size, duplicates, defaults)
+- [x] Targeting evaluator: `platform`, `appVersion`, `locale`, `screenSize`, `routes`, `userId`, `attributes`, `predicate`
+- [x] Assignment strategies: `default`, `random`, `sticky-hash`, `weighted`
+- [x] Mutex groups
+- [x] Kill switch and archived status
+- [x] Fail-open / fail-closed modes
+- [x] `subscribe(listener)` for reactivity
+- [x] `updateContext(partial)` for runtime context updates
+- [x] `setVariant` / `clearVariant` / `resetAll`
+- [x] In-memory history ring buffer
+- [x] Hand-rolled semver matcher
+- [x] Hand-rolled glob matcher
+- [ ] Hand-rolled HMAC verifier (Web Crypto) — deferred to Phase 4
+- [x] Prototype pollution guards
+- [x] `Object.freeze` on loaded config
 
 ### React adapter (`@variantlab/react`)
 
-- [ ] `<VariantLabProvider engine={...} />`
-- [ ] `useVariant(id)` hook
-- [ ] `useVariantValue(id)` hook
-- [ ] `useExperiment(id)` hook
-- [ ] `useSetVariant()` hook
-- [ ] `useVariantLabEngine()` hook
-- [ ] `useRouteExperiments()` hook
-- [ ] `<Variant>` render-prop component
-- [ ] `<VariantValue>` render-prop component
-- [ ] `<VariantErrorBoundary>` with crash-rollback integration
-- [ ] `<VariantDebugOverlay>` with overview + context tabs
-- [ ] Size: core + react < 5 KB gzipped
+- [x] `<VariantLabProvider engine={...} />`
+- [x] `useVariant(id)` hook
+- [x] `useVariantValue(id)` hook
+- [x] `useExperiment(id)` hook
+- [x] `useSetVariant()` hook
+- [x] `useVariantLabEngine()` hook
+- [x] `useRouteExperiments()` hook
+- [x] `<Variant>` render-prop component
+- [x] `<VariantValue>` render-prop component
+- [x] `<VariantErrorBoundary>` with crash-rollback integration
+- [ ] `<VariantDebugOverlay>` with overview + context tabs — deferred to Phase 2
+- [x] Size: core + react < 5 KB gzipped
 
 ### React Native adapter (`@variantlab/react-native`)
 
-- [ ] All `@variantlab/react` exports re-exported
-- [ ] Native platform detection (`Platform.OS`)
-- [ ] Native screen size detection (`Dimensions`)
-- [ ] Native app version detection (`Constants` / `DeviceInfo`)
-- [ ] Native locale detection (`NativeModules` / `expo-localization`)
-- [ ] Router integration (Expo Router via `usePathname`)
-- [ ] AsyncStorage adapter
-- [ ] MMKV adapter
-- [ ] SecureStore adapter
-- [ ] Deep link handler via `Linking`
-- [ ] `<VariantDebugOverlay>` with native bottom-sheet
-- [ ] QR generator (hand-rolled, ~2 KB)
+- [x] All `@variantlab/react` exports re-exported
+- [x] Native platform detection (`Platform.OS`)
+- [x] Native screen size detection (`Dimensions`)
+- [x] Native app version detection (`Constants` / `DeviceInfo`)
+- [x] Native locale detection (`NativeModules` / `expo-localization`)
+- [x] Router integration (Expo Router via `usePathname`)
+- [x] AsyncStorage adapter
+- [x] MMKV adapter
+- [x] SecureStore adapter
+- [x] Deep link handler via `Linking`
+- [x] `<VariantDebugOverlay>` with native bottom-sheet
+- [x] QR generator (hand-rolled, ~2 KB)
 
 ### Next.js adapter (`@variantlab/next`)
 
-- [ ] `createVariantLabServer(config, options)`
-- [ ] `getVariantSSR(id, context)` for Server Components
-- [ ] `<VariantLabProvider>` with `initialVariants` hydration
-- [ ] Cookie-based sticky assignment
-- [ ] `variantLabMiddleware(config)` for edge middleware
-- [ ] Route integration via `usePathname` from `next/navigation`
-- [ ] Works on both Pages Router and App Router
-- [ ] Works on Vercel Edge runtime
+- [x] `createVariantLabServer(config, options)`
+- [x] `getVariantSSR(id, context)` for Server Components
+- [x] `<VariantLabProvider>` with `initialVariants` hydration
+- [x] Cookie-based sticky assignment
+- [x] `variantLabMiddleware(config)` for edge middleware
+- [x] Route integration via `usePathname` from `next/navigation`
+- [x] Works on both Pages Router and App Router
+- [x] Works on Vercel Edge runtime
 
 ### CLI (`@variantlab/cli`)
 
-- [ ] `variantlab init` — scaffold `experiments.json` + config
-- [ ] `variantlab generate` — codegen TypeScript from config
-- [ ] `variantlab validate` — schema + semantic validation
-- [ ] `variantlab eval` — evaluate experiments against a test context
-- [ ] Exit codes per `docs/features/codegen.md`
-- [ ] `--watch` mode for `generate`
-- [ ] Size: < 50 KB (allowed to be larger than runtime)
+- [x] `variantlab init` — scaffold `experiments.json` + config
+- [x] `variantlab generate` — codegen TypeScript from config
+- [x] `variantlab validate` — schema + semantic validation
+- [x] `variantlab eval` — evaluate experiments against a test context
+- [x] Exit codes per `docs/features/codegen.md`
+- [x] `--watch` mode for `generate`
+- [x] Size: < 50 KB (allowed to be larger than runtime)
 
 ---
 
@@ -245,13 +245,13 @@ Coverage targets:
 
 On every PR:
 
-- [ ] Typecheck
-- [ ] Lint
-- [ ] Unit tests
-- [ ] Size check
-- [ ] Publint (npm metadata validation)
-- [ ] Arethetypeswrong (export correctness)
-- [ ] Changesets check (has a changeset file if package changed)
+- [x] Typecheck
+- [x] Lint
+- [x] Unit tests
+- [x] Size check
+- [x] Publint (npm metadata validation)
+- [x] Arethetypeswrong (export correctness)
+- [x] Changesets check (has a changeset file if package changed)
 
 ---
 

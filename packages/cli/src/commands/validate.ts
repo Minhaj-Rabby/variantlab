@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { validateConfig, ConfigValidationError } from "@variantlab/core";
+import { ConfigValidationError, validateConfig } from "@variantlab/core";
 import { fileExists, readTextFile } from "../utils/file.js";
 import * as print from "../utils/printer.js";
 import { color } from "../utils/printer.js";
@@ -56,9 +56,7 @@ export async function validate(
       print.error(`Validation failed with ${err.issues.length} issue(s):`);
       console.log("");
       for (const issue of err.issues) {
-        console.log(
-          `  ${color.red(issue.code)} at ${color.yellow(issue.path)}`,
-        );
+        console.log(`  ${color.red(issue.code)} at ${color.yellow(issue.path)}`);
         console.log(`    ${issue.message}`);
       }
       console.log("");

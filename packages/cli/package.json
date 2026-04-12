@@ -1,12 +1,12 @@
 {
   "name": "@variantlab/cli",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Command-line tool for variantlab: init, generate, validate, eval.",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
   "bin": {
-    "variantlab": "./dist/bin/variantlab.js"
+    "variantlab": "./dist/variantlab.js"
   },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

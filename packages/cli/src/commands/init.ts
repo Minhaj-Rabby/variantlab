@@ -61,7 +61,7 @@ export async function init(options: InitOptions = {}): Promise<number> {
       if (!scripts["variantlab:generate"]) {
         scripts["variantlab:generate"] = "variantlab generate";
         pkg.scripts = scripts;
-        await writeTextFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
+        await writeTextFile(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`);
         print.success('Added "variantlab:generate" script to package.json');
       }
     } catch {

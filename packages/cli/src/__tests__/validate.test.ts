@@ -1,7 +1,7 @@
-import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { validate } from "../commands/validate.js";
 
 const VALID_CONFIG = JSON.stringify({
@@ -69,11 +69,7 @@ describe("validate command", () => {
   });
 
   it("returns 2 for missing version", async () => {
-    await writeFile(
-      join(cwd, "experiments.json"),
-      JSON.stringify({ experiments: [] }),
-      "utf-8",
-    );
+    await writeFile(join(cwd, "experiments.json"), JSON.stringify({ experiments: [] }), "utf-8");
     const code = await validate();
     expect(code).toBe(2);
   });

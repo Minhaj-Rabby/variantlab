@@ -1,4 +1,4 @@
-import { readFile, writeFile, access, mkdir } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname } from "node:path";
 
 export async function readTextFile(path: string): Promise<string> {
