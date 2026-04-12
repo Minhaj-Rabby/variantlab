@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/next",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Next.js 14 and 15 bindings for variantlab — App Router, Pages Router, and Edge runtime.",
   "license": "MIT",
   "type": "module",
@@ -47,6 +47,16 @@
       "require": {
         "types": "./dist/pages-router.d.cts",
         "default": "./dist/pages-router.cjs"
+      }
+    },
+    "./debug": {
+      "import": {
+        "types": "./dist/client/debug.d.ts",
+        "default": "./dist/client/debug.js"
+      },
+      "require": {
+        "types": "./dist/client/debug.d.cts",
+        "default": "./dist/client/debug.cjs"
       }
     },
     "./package.json": "./package.json"

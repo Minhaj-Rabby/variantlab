@@ -30,6 +30,10 @@ const workspaceAliases = [
     replacement: r("./packages/react-native/src/qr.ts"),
   },
   { find: /^@variantlab\/core$/, replacement: r("./packages/core/src/index.ts") },
+  {
+    find: /^@variantlab\/react\/debug$/,
+    replacement: r("./packages/react/src/debug.ts"),
+  },
   { find: /^@variantlab\/react$/, replacement: r("./packages/react/src/index.ts") },
   {
     find: /^@variantlab\/react-native$/,

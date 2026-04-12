@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/react",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "React hooks and components for variantlab.",
   "license": "MIT",
   "type": "module",
@@ -17,6 +17,16 @@
       "require": {
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
+      }
+    },
+    "./debug": {
+      "import": {
+        "types": "./dist/debug.d.ts",
+        "default": "./dist/debug.js"
+      },
+      "require": {
+        "types": "./dist/debug.d.cts",
+        "default": "./dist/debug.cjs"
       }
     },
     "./package.json": "./package.json"
@@ -61,7 +71,8 @@
     "@variantlab/core": "workspace:*"
   },
   "peerDependencies": {
-    "react": "^18.2.0 || ^19.0.0"
+    "react": "^18.2.0 || ^19.0.0",
+    "react-dom": "^18.2.0 || ^19.0.0"
   },
   "devDependencies": {
     "@testing-library/react": "^16.1.0",

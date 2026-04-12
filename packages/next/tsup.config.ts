@@ -14,7 +14,12 @@ import { defineConfig } from "tsup";
  * write it in a post-build hook.
  */
 async function prependUseClient(): Promise<void> {
-  const files = ["dist/client/hooks.js", "dist/client/hooks.cjs"];
+  const files = [
+    "dist/client/hooks.js",
+    "dist/client/hooks.cjs",
+    "dist/client/debug.js",
+    "dist/client/debug.cjs",
+  ];
   for (const file of files) {
     try {
       const contents = await readFile(file, "utf8");
@@ -60,6 +65,7 @@ export default defineConfig([
     name: "client",
     entry: {
       "client/hooks": "src/client/hooks.ts",
+      "client/debug": "src/client/debug.ts",
     },
     format: ["esm", "cjs"],
     dts: true,
@@ -83,7 +89,7 @@ export default defineConfig([
       "next/server",
       "@variantlab/core",
     ],
-    noExternal: ["@variantlab/react"],
+    noExternal: [/^@variantlab\/react/],
     outExtension: ({ format }) => ({
       js: format === "cjs" ? ".cjs" : ".js",
     }),
