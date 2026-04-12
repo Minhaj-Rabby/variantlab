@@ -1024,7 +1024,7 @@ export function createSecureStoreAdapter(): Storage;
 
 ```tsx
 export const VariantDebugOverlay: React.FC<{
-  forceEnable?: boolean;
+  enabled?: boolean;
   routeFilter?: boolean;
   position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   hideButton?: boolean;
@@ -1038,7 +1038,7 @@ export function closeDebugOverlay(): void;
 
 ```tsx
 export const VariantDebugOverlay: React.FC<{
-  forceEnable?: boolean;
+  enabled?: boolean;
   routeFilter?: boolean;
   position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
   hideButton?: boolean;

@@ -18,8 +18,7 @@
  *   - Engine subscription is consolidated into a single
  *     `useSyncExternalStore` call via `useEngineSnapshot`, then fanned
  *     out to the tab components as plain props.
- *   - The overlay self-disables in production by default. The
- *     `forceEnable` prop is the documented escape hatch for QA builds.
+ *   - The overlay renders by default. Pass `enabled={false}` to hide it.
  *   - Uses `createPortal` to `document.body` and a right-side slide
  *     panel (400px) instead of a bottom sheet.
  *   - `Escape` key closes the panel (standard web keyboard convention).
@@ -55,8 +54,8 @@ import { useEngineSnapshot } from "./use-engine-snapshot.js";
 type TabName = "overview" | "context" | "config" | "history";
 
 export interface VariantDebugOverlayProps {
-  /** Force the overlay on even outside of development. Default: `false`. */
-  readonly forceEnable?: boolean | undefined;
+  /** Set to `false` to hide the overlay. Default: `true`. */
+  readonly enabled?: boolean | undefined;
   /** Hide the floating button entirely (open via `openDebugOverlay()`). */
   readonly hideButton?: boolean | undefined;
   /** Floating-button corner. */
@@ -70,30 +69,8 @@ export interface VariantDebugOverlayProps {
 }
 
 export function VariantDebugOverlay(props: VariantDebugOverlayProps): ReactElement | null {
-  if (!shouldRender(props.forceEnable)) {
-    if (typeof process !== "undefined" && process.env?.NODE_ENV === "production") {
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[variantlab] VariantDebugOverlay rendered in production. " +
-          "Pass forceEnable={true} if this is intentional.",
-      );
-    }
-    return null;
-  }
+  if (props.enabled === false) return null;
   return <OverlayImpl {...props} />;
-}
-
-/**
- * Determines whether the overlay should render. Exported for tests.
- *
- * Order of precedence:
- *   1. Explicit `forceEnable` prop wins.
- *   2. `process.env.NODE_ENV === "development"` (web standard).
- */
-export function shouldRender(forceEnable: boolean | undefined): boolean {
-  if (forceEnable === true) return true;
-  if (typeof process !== "undefined" && process.env?.NODE_ENV === "development") return true;
-  return false;
 }
 
 function OverlayImpl(props: VariantDebugOverlayProps): ReactElement {

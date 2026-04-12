@@ -361,8 +361,8 @@ What the overlay shows:
 // Custom theme colors
 <VariantDebugOverlay theme={{ accent: "#a78bfa" }} />
 
-// Force enable in non-development builds (e.g. QA)
-<VariantDebugOverlay forceEnable />
+// Hide the overlay
+<VariantDebugOverlay enabled={false} />
 ```
 
 ### Programmatic control

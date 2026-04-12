@@ -10,7 +10,7 @@ import type { EngineEvent, Experiment } from "@variantlab/core";
 import { describe, expect, it } from "vitest";
 import { describeAssignmentSource } from "../overlay/experiment-card.js";
 import { filterExperiments, isVisibleExperiment, matchesSearch } from "../overlay/filter.js";
-import { shouldRender } from "../overlay/index.js";
+
 import { stringifyContext } from "../overlay/tabs/context.js";
 import { summarize } from "../overlay/tabs/history.js";
 import { DEFAULT_THEME, mergeTheme } from "../overlay/theme.js";
@@ -125,23 +125,3 @@ describe("mergeTheme", () => {
   });
 });
 
-describe("shouldRender", () => {
-  it("honors an explicit forceEnable", () => {
-    expect(shouldRender(true)).toBe(true);
-  });
-
-  it("returns false when NODE_ENV is not development", () => {
-    // vitest sets NODE_ENV=test, which is not "development"
-    expect(shouldRender(undefined)).toBe(false);
-  });
-
-  it("returns true when NODE_ENV is development", () => {
-    const prev = process.env.NODE_ENV;
-    process.env.NODE_ENV = "development";
-    try {
-      expect(shouldRender(undefined)).toBe(true);
-    } finally {
-      process.env.NODE_ENV = prev;
-    }
-  });
-});

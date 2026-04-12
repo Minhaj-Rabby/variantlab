@@ -102,46 +102,35 @@ describe("OverviewTab", () => {
 });
 
 describe("VariantDebugOverlay", () => {
-  it("renders when forceEnable is true and a provider is mounted", () => {
+  it("renders when a provider is mounted", () => {
     const engine = createEngine(config);
-    // Render should not throw. Because the bottom sheet's Modal is
-    // hidden on first render and `hideButton` suppresses the floating
-    // button, the output is an empty string — but that's fine, the
-    // point is that the tree mounts without errors.
     expect(() =>
       renderToStaticMarkup(
         <VariantLabProvider engine={engine}>
-          <VariantDebugOverlay forceEnable hideButton />
+          <VariantDebugOverlay hideButton />
         </VariantLabProvider>,
       ),
     ).not.toThrow();
   });
 
-  it("renders the floating button badge when forceEnable is true", () => {
+  it("renders the floating button badge", () => {
     const engine = createEngine(config);
     // Two non-archived experiments in the config → badge shows "2".
     const html = renderToStaticMarkup(
       <VariantLabProvider engine={engine}>
-        <VariantDebugOverlay forceEnable />
+        <VariantDebugOverlay />
       </VariantLabProvider>,
     );
     expect(html).toContain("2");
   });
 
-  it("returns null when not in dev and forceEnable is false", () => {
-    (globalThis as { __DEV__?: boolean }).__DEV__ = false;
-    try {
-      const engine = createEngine(config);
-      const html = renderToStaticMarkup(
-        <VariantLabProvider engine={engine}>
-          <VariantDebugOverlay />
-        </VariantLabProvider>,
-      );
-      // Overlay bails out to `null`, provider has no other children →
-      // empty output.
-      expect(html).toBe("");
-    } finally {
-      (globalThis as { __DEV__?: boolean }).__DEV__ = true;
-    }
+  it("returns null when enabled is false", () => {
+    const engine = createEngine(config);
+    const html = renderToStaticMarkup(
+      <VariantLabProvider engine={engine}>
+        <VariantDebugOverlay enabled={false} />
+      </VariantLabProvider>,
+    );
+    expect(html).toBe("");
   });
 });

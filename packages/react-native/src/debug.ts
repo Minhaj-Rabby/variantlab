@@ -15,7 +15,7 @@
  *       return (
  *         <VariantLabProvider engine={engine}>
  *           <Root />
- *           {__DEV__ ? <VariantDebugOverlay /> : null}
+ *           <VariantDebugOverlay />
  *         </VariantLabProvider>
  *       );
  *     }
@@ -34,7 +34,6 @@ export {
   registerOverlay,
 } from "./overlay/imperative.js";
 export {
-  shouldRender,
   VariantDebugOverlay,
   type VariantDebugOverlayProps,
 } from "./overlay/index.js";

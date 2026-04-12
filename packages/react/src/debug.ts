@@ -14,7 +14,7 @@
  *       return (
  *         <VariantLabProvider engine={engine}>
  *           <Root />
- *           {process.env.NODE_ENV === "development" ? <VariantDebugOverlay /> : null}
+ *           <VariantDebugOverlay />
  *         </VariantLabProvider>
  *       );
  *     }
@@ -33,7 +33,6 @@ export {
   registerOverlay,
 } from "./overlay/imperative.js";
 export {
-  shouldRender,
   VariantDebugOverlay,
   type VariantDebugOverlayProps,
 } from "./overlay/index.js";

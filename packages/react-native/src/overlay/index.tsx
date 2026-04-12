@@ -22,10 +22,7 @@
  *     `useSyncExternalStore` call via `useEngineSnapshot`, then
  *     fanned out to the tab components as plain props. This means
  *     toggling between tabs has zero engine-side cost.
- *   - The overlay self-disables in production by default. The
- *     `forceEnable` prop is the documented escape hatch for QA
- *     builds; the warning fires only in `process.env.NODE_ENV === "production"`
- *     so jest/vitest test runs stay quiet.
+ *   - The overlay renders by default. Pass `enabled={false}` to hide it.
  */
 
 import type { EngineEvent, Experiment, ExperimentsConfig, VariantContext } from "@variantlab/core";
@@ -47,8 +44,8 @@ import { useEngineSnapshot } from "./use-engine-snapshot.js";
 type TabName = "overview" | "context" | "config" | "history";
 
 export interface VariantDebugOverlayProps {
-  /** Force the overlay on even outside of `__DEV__`. Default: `false`. */
-  readonly forceEnable?: boolean;
+  /** Set to `false` to hide the overlay. Default: `true`. */
+  readonly enabled?: boolean;
   /** Hide the floating button entirely (open via `openDebugOverlay()`). */
   readonly hideButton?: boolean;
   /** Floating-button corner. */
@@ -64,32 +61,8 @@ export interface VariantDebugOverlayProps {
 }
 
 export function VariantDebugOverlay(props: VariantDebugOverlayProps): ReactElement | null {
-  if (!shouldRender(props.forceEnable)) {
-    if (typeof process !== "undefined" && process.env?.NODE_ENV === "production") {
-      // eslint-disable-next-line no-console
-      console.warn(
-        "[variantlab] VariantDebugOverlay rendered in production. " +
-          "Pass forceEnable={true} if this is intentional.",
-      );
-    }
-    return null;
-  }
+  if (props.enabled === false) return null;
   return <OverlayImpl {...props} />;
-}
-
-/**
- * Determines whether the overlay should render. Exported for tests.
- *
- * Order of precedence:
- *   1. Explicit `forceEnable` prop wins.
- *   2. The RN-injected `__DEV__` global is `true`.
- *   3. `process.env.NODE_ENV === "development"` (web fallback).
- */
-export function shouldRender(forceEnable: boolean | undefined): boolean {
-  if (forceEnable === true) return true;
-  if (typeof __DEV__ !== "undefined" && __DEV__ === true) return true;
-  if (typeof process !== "undefined" && process.env?.NODE_ENV === "development") return true;
-  return false;
 }
 
 function OverlayImpl(props: VariantDebugOverlayProps): ReactElement {

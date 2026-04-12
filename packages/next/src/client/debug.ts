@@ -19,7 +19,6 @@ export {
   mergeTheme,
   openDebugOverlay,
   registerOverlay,
-  shouldRender,
   stringifyContext,
   summarizeEvent,
   VariantDebugOverlay,

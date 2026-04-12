@@ -93,22 +93,22 @@ describe("OverviewTab", () => {
 });
 
 describe("VariantDebugOverlay", () => {
-  it("renders when forceEnable is true and a provider is mounted", () => {
+  it("renders when enabled is true and a provider is mounted", () => {
     const engine = createEngine(config);
     expect(() =>
       render(
         <VariantLabProvider engine={engine}>
-          <VariantDebugOverlay forceEnable />
+          <VariantDebugOverlay enabled />
         </VariantLabProvider>,
       ),
     ).not.toThrow();
   });
 
-  it("renders the floating button with badge when forceEnable is true", () => {
+  it("renders the floating button with badge when enabled is true", () => {
     const engine = createEngine(config);
     render(
       <VariantLabProvider engine={engine}>
-        <VariantDebugOverlay forceEnable />
+        <VariantDebugOverlay enabled />
       </VariantLabProvider>,
     );
     // The floating button should be present
@@ -120,7 +120,7 @@ describe("VariantDebugOverlay", () => {
     expect(() =>
       render(
         <VariantLabProvider engine={engine}>
-          <VariantDebugOverlay forceEnable hideButton />
+          <VariantDebugOverlay enabled hideButton />
         </VariantLabProvider>,
       ),
     ).not.toThrow();

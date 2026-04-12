@@ -87,29 +87,11 @@ When no experiments match the current route:
 
 ## Production safety
 
-The overlay is a dev-only tool. In production, mounting it is a bug. We make it hard to do accidentally.
-
-### Auto-disable in production
-
-The overlay component checks multiple signals before rendering:
+The overlay renders by default when mounted. Pass `enabled={false}` to hide it:
 
 ```tsx
-function VariantDebugOverlay({ forceEnable = false }) {
-  const isDev =
-    forceEnable ||
-    (typeof __DEV__ !== "undefined" && __DEV__) ||
-    process.env.NODE_ENV === "development";
-
-  if (!isDev) {
-    if (process.env.NODE_ENV === "production") {
-      console.warn(
-        "[variantlab] VariantDebugOverlay rendered in production. " +
-          "Use forceEnable={true} if this is intentional.",
-      );
-    }
-    return null;
-  }
-
+function VariantDebugOverlay({ enabled = true }) {
+  if (enabled === false) return null;
   return <OverlayImpl />;
 }
 ```
@@ -166,7 +148,7 @@ Advanced: a 4-corner tap sequence in a specific order. Useful for hiding the ove
 
 ### URL parameter (web only)
 
-Append `?__variantlab=1` to the URL to force-enable the overlay even in production (requires `forceEnable` on the component).
+Append `?__variantlab=1` to the URL to open the overlay programmatically.
 
 ---
 
