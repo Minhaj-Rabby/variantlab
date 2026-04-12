@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/react",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "React hooks and components for variantlab.",
   "license": "MIT",
   "type": "module",

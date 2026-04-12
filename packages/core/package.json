@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/core",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "The framework-agnostic variantlab engine. Zero dependencies, runs anywhere.",
   "license": "MIT",
   "type": "module",
@@ -23,6 +23,7 @@
   },
   "files": [
     "dist",
+    "docs",
     "README.md"
   ],
   "publishConfig": {

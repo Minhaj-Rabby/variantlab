@@ -179,6 +179,56 @@ Use `@variantlab/core` directly for vanilla JS/TS, or pair it with a framework a
 - [`@variantlab/react-native`](https://www.npmjs.com/package/@variantlab/react-native) — React Native + Expo with debug overlay
 - [`@variantlab/next`](https://www.npmjs.com/package/@variantlab/next) — Next.js 14/15 SSR + Edge
 
+---
+
+## Documentation
+
+This package ships with full documentation in the `docs/` directory. After installing, find them at `node_modules/@variantlab/core/docs/`.
+
+### Overview
+
+- [ARCHITECTURE.md](./docs/ARCHITECTURE.md) — monorepo layout, runtime data flow, size budgets
+- [API.md](./docs/API.md) — complete TypeScript API surface
+- [SECURITY.md](./docs/SECURITY.md) — threat model, mitigations, reporting
+- [ROADMAP.md](./docs/ROADMAP.md) — phased feature rollout
+- [CONTRIBUTING.md](./docs/CONTRIBUTING.md) — how to contribute
+
+### Research
+
+- [competitors.md](./docs/research/competitors.md) — full competitor analysis
+- [bundle-size-analysis.md](./docs/research/bundle-size-analysis.md) — how we hit < 3 KB
+- [framework-ssr-quirks.md](./docs/research/framework-ssr-quirks.md) — per-framework SSR notes
+- [origin-story.md](./docs/research/origin-story.md) — the small-phone card problem that started it
+- [naming-rationale.md](./docs/research/naming-rationale.md) — why "variantlab"
+- [security-threats.md](./docs/research/security-threats.md) — threat landscape review
+
+### Design decisions
+
+- [design-principles.md](./docs/design/design-principles.md) — the 8 core principles with rationale
+- [config-format.md](./docs/design/config-format.md) — `experiments.json` specification
+- [targeting-dsl.md](./docs/design/targeting-dsl.md) — targeting predicate language
+- [api-philosophy.md](./docs/design/api-philosophy.md) — why the API looks the way it does
+
+### Feature specs
+
+- [codegen.md](./docs/features/codegen.md) — type generation from config
+- [targeting.md](./docs/features/targeting.md) — segmentation predicates
+- [value-experiments.md](./docs/features/value-experiments.md) — non-render variant values
+- [debug-overlay.md](./docs/features/debug-overlay.md) — runtime picker UX
+- [crash-rollback.md](./docs/features/crash-rollback.md) — error-boundary-driven auto-rollback
+- [qr-sharing.md](./docs/features/qr-sharing.md) — state sharing via QR codes
+- [hmac-signing.md](./docs/features/hmac-signing.md) — config integrity verification
+- [time-travel.md](./docs/features/time-travel.md) — record + replay debugging
+- [multivariate.md](./docs/features/multivariate.md) — crossed experiments
+- [killer-features.md](./docs/features/killer-features.md) — the 10 differentiators
+
+### Roadmap
+
+- [phase-2-expansion.md](./docs/phases/phase-2-expansion.md) — Remix, Vue, vanilla JS, devtools
+- [phase-3-ecosystem.md](./docs/phases/phase-3-ecosystem.md) — Svelte, Solid, Astro, Nuxt, addons
+- [phase-4-advanced.md](./docs/phases/phase-4-advanced.md) — HMAC GA, crash rollback GA, time travel
+- [phase-5-v1-stable.md](./docs/phases/phase-5-v1-stable.md) — v1.0 release criteria
+
 ## License
 
 [MIT](./LICENSE)

@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/next",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Next.js 14 and 15 bindings for variantlab — App Router, Pages Router, and Edge runtime.",
   "license": "MIT",
   "type": "module",

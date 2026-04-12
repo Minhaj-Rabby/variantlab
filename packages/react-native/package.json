@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/react-native",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "React Native and Expo bindings for variantlab.",
   "license": "MIT",
   "type": "module",
