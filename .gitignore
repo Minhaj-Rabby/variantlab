@@ -48,3 +48,9 @@ coverage/
 .cache/
 .parcel-cache/
 .eslintcache
+
+# Internal / sensitive docs
+CLAUDE.md
+docs/phases/phase-0-foundation.md
+docs/phases/phase-1-mvp.md
+docs/phases/phase-1-kickoff-prompts.md

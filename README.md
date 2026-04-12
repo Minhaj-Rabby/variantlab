@@ -285,7 +285,7 @@ Full rationale in [`docs/design/design-principles.md`](./docs/design/design-prin
 
 ## Project status
 
-**Alpha (v0.1.0).** [Phase 1: MVP](./docs/phases/phase-1-mvp.md) is complete. All five packages are built, tested, and versioned at `0.1.0`:
+**Alpha (v0.1.0).** Phase 1 (MVP) is complete. All five packages are built, tested, and published:
 
 - `@variantlab/core` — config validation, targeting evaluator, 5 assignment strategies, history, kill switch, time gate, crash rollback. 0 runtime deps, < 3 KB gzipped.
 - `@variantlab/react` — provider, 6 hooks, 3 components. < 2 KB gzipped.
@@ -304,54 +304,46 @@ The first production integration is [Drishtikon Mobile](https://github.com/drish
 
 ---
 
-## Documentation map
+## Documentation
 
-### Root
+### Overview
 
-- [`README.md`](./README.md) — this file
-- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — monorepo layout, build tooling, size budgets
+- [`ARCHITECTURE.md`](./ARCHITECTURE.md) — monorepo layout, runtime data flow, size budgets
 - [`API.md`](./API.md) — complete TypeScript API surface
 - [`SECURITY.md`](./SECURITY.md) — threat model, mitigations, reporting
 - [`ROADMAP.md`](./ROADMAP.md) — phased feature rollout
 - [`CONTRIBUTING.md`](./CONTRIBUTING.md) — how to contribute
-- [`LICENSE`](./LICENSE) — MIT
 
-### Research (`docs/research/`)
+### Research
 
 - [`competitors.md`](./docs/research/competitors.md) — full competitor analysis
-- [`bundle-size-analysis.md`](./docs/research/bundle-size-analysis.md) — how to hit < 3 KB
+- [`bundle-size-analysis.md`](./docs/research/bundle-size-analysis.md) — how we hit < 3 KB
 - [`framework-ssr-quirks.md`](./docs/research/framework-ssr-quirks.md) — per-framework SSR notes
-- [`naming-rationale.md`](./docs/research/naming-rationale.md) — why "variantlab"
-- [`security-threats.md`](./docs/research/security-threats.md) — threat landscape review
 - [`origin-story.md`](./docs/research/origin-story.md) — the small-phone card problem that started it
 
-### Design (`docs/design/`)
+### Design decisions
 
 - [`design-principles.md`](./docs/design/design-principles.md) — the 8 core principles with rationale
 - [`config-format.md`](./docs/design/config-format.md) — `experiments.json` specification
 - [`targeting-dsl.md`](./docs/design/targeting-dsl.md) — targeting predicate language
 - [`api-philosophy.md`](./docs/design/api-philosophy.md) — why the API looks the way it does
 
-### Features (`docs/features/`)
+### Feature specs
 
-- [`killer-features.md`](./docs/features/killer-features.md) — the 10 differentiators
-- [`codegen.md`](./docs/features/codegen.md) — type generation
-- [`debug-overlay.md`](./docs/features/debug-overlay.md) — runtime picker UX
+- [`codegen.md`](./docs/features/codegen.md) — type generation from config
 - [`targeting.md`](./docs/features/targeting.md) — segmentation predicates
-- [`value-experiments.md`](./docs/features/value-experiments.md) — non-render variants
-- [`multivariate.md`](./docs/features/multivariate.md) — crossed experiments
-- [`crash-rollback.md`](./docs/features/crash-rollback.md) — error-boundary-driven rollback
-- [`qr-sharing.md`](./docs/features/qr-sharing.md) — state QR codes
-- [`hmac-signing.md`](./docs/features/hmac-signing.md) — config integrity
-- [`time-travel.md`](./docs/features/time-travel.md) — record + replay
+- [`value-experiments.md`](./docs/features/value-experiments.md) — non-render variant values
+- [`debug-overlay.md`](./docs/features/debug-overlay.md) — runtime picker UX
+- [`crash-rollback.md`](./docs/features/crash-rollback.md) — error-boundary-driven auto-rollback
+- [`qr-sharing.md`](./docs/features/qr-sharing.md) — state sharing via QR codes
+- [`hmac-signing.md`](./docs/features/hmac-signing.md) — config integrity verification
+- [`time-travel.md`](./docs/features/time-travel.md) — record + replay debugging
 
-### Phases (`docs/phases/`)
+### Roadmap
 
-- [`phase-0-foundation.md`](./docs/phases/phase-0-foundation.md) — docs and design (complete)
-- [`phase-1-mvp.md`](./docs/phases/phase-1-mvp.md) — core + react + react-native + next + cli (complete)
-- [`phase-2-expansion.md`](./docs/phases/phase-2-expansion.md) — remix + vue + vanilla + devtools
-- [`phase-3-ecosystem.md`](./docs/phases/phase-3-ecosystem.md) — svelte + solid + astro + nuxt + addons
-- [`phase-4-advanced.md`](./docs/phases/phase-4-advanced.md) — HMAC + crash rollback + time travel
+- [`phase-2-expansion.md`](./docs/phases/phase-2-expansion.md) — Remix, Vue, vanilla JS, devtools
+- [`phase-3-ecosystem.md`](./docs/phases/phase-3-ecosystem.md) — Svelte, Solid, Astro, Nuxt, addons
+- [`phase-4-advanced.md`](./docs/phases/phase-4-advanced.md) — HMAC GA, crash rollback GA, time travel
 - [`phase-5-v1-stable.md`](./docs/phases/phase-5-v1-stable.md) — v1.0 release criteria
 
 ---

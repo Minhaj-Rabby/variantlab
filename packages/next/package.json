@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/next",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "Next.js 14 and 15 bindings for variantlab — App Router, Pages Router, and Edge runtime.",
   "license": "MIT",
   "type": "module",
@@ -79,13 +79,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/variantlab/variantlab.git",
+    "url": "git+https://github.com/Minhaj-Rabby/variantlab.git",
     "directory": "packages/next"
   },
   "bugs": {
-    "url": "https://github.com/variantlab/variantlab/issues"
+    "url": "https://github.com/Minhaj-Rabby/variantlab/issues"
   },
-  "homepage": "https://github.com/variantlab/variantlab#readme",
+  "homepage": "https://github.com/Minhaj-Rabby/variantlab#readme",
   "engines": {
     "node": ">=18.17"
   },

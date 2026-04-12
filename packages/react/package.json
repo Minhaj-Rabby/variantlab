@@ -1,6 +1,6 @@
 {
   "name": "@variantlab/react",
-  "version": "0.1.0",
+  "version": "0.1.3",
   "description": "React hooks and components for variantlab.",
   "license": "MIT",
   "type": "module",
@@ -47,13 +47,13 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/variantlab/variantlab.git",
+    "url": "git+https://github.com/Minhaj-Rabby/variantlab.git",
     "directory": "packages/react"
   },
   "bugs": {
-    "url": "https://github.com/variantlab/variantlab/issues"
+    "url": "https://github.com/Minhaj-Rabby/variantlab/issues"
   },
-  "homepage": "https://github.com/variantlab/variantlab#readme",
+  "homepage": "https://github.com/Minhaj-Rabby/variantlab#readme",
   "engines": {
     "node": ">=18.17"
   },
